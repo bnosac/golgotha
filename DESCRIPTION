@@ -1,0 +1,22 @@
+Package: golgotha
+Type: Package
+Title: Contextualised Embeddings and Language Modelling using BERT and Friends
+Version: 0.1.0
+Maintainer: Jan Wijffels <jwijffels@bnosac.be>
+Authors@R: c(
+    person('Jan', 'Wijffels', role = c('aut', 'cre', 'cph'), email = 'jwijffels@bnosac.be'), 
+    person('BNOSAC', role = 'cph'))
+Description: Wraps the transformers Python module in order to easily obtain contextualised embeddings of sentences.
+    This work was basically done in order to ease the work of building predictive models using BERT-like embeddings.
+License: MPL-2.0
+Encoding: UTF-8
+Depends:
+    reticulate (>= 1.14)
+Config/reticulate:
+  list(
+    packages = list(
+      list(package = "torch", pip = TRUE),
+      list(package = "transformers", version = "2.4.1", pip = TRUE)
+    )
+  )    
+RoxygenNote: 6.1.1

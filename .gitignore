@@ -1,0 +1,6 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+inst/models/bert-base-dutch-cased
+inst/models/bert-base-multilingual-uncased
