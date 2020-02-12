@@ -52,7 +52,9 @@ tokens <- predict(model, text, type = "tokenise")
 
 ```{r}
 model <- BERT("bert-base-multilingual-uncased")
+model <- BERT("bert-base-multilingual-cased")
 model <- BERT("bert-base-dutch-cased")
 model <- BERT("bert-base-uncased")
 model <- BERT("bert-base-cased")
+model <- BERT("bert-base-chinese")
 ```
