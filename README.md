@@ -32,7 +32,7 @@ x <- data.frame(doc_id = c("doc_1", "doc_2"),
                 stringsAsFactors = FALSE)
 embedding <- predict(model, x, type = "embed-sentence")
 embedding <- predict(model, x, type = "embed-token")
-tokens <- predict(model, x, type = "tokenise")
+tokens    <- predict(model, x, type = "tokenise")
 ```
 
 - Same example but now on Dutch / French
@@ -45,7 +45,7 @@ text <- c("vlieg met me mee naar de horizon want ik hou alleen van jou",
 text <- setNames(text, c("doc_nl", "doc_fr", "le petit boudin", "thebible"))
 embedding <- predict(model, text, type = "embed-sentence")
 embedding <- predict(model, text, type = "embed-token")
-tokens <- predict(model, text, type = "tokenise")
+tokens    <- predict(model, text, type = "tokenise")
 ```
 
 - Some other models
