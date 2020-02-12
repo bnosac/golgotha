@@ -9,8 +9,9 @@
 
 ## Installation
 
-- For installing the development version of this package: `remotes::install_github("bnosac/golgotha", build_opts = "--no-multiarch")`
-- Look to the documentation of the functions: `help(package = "golgotha")`
+- For installing the development version of this package: 
+    - Execute in R: `devtools::install_github("bnosac/golgotha", INSTALL_opts = "--no-multiarch")`
+    - Look to the documentation of the functions: `help(package = "golgotha")`
 
 ## Example
 
@@ -45,4 +46,13 @@ text <- setNames(text, c("doc_nl", "doc_fr", "le petit boudin", "thebible"))
 embedding <- predict(model, text, type = "embed-sentence")
 embedding <- predict(model, text, type = "embed-token")
 tokens <- predict(model, text, type = "tokenise")
+```
+
+- Some other models
+
+```{r}
+model <- BERT("bert-base-multilingual-uncased")
+model <- BERT("bert-base-dutch-cased")
+model <- BERT("bert-base-uncased")
+model <- BERT("bert-base-cased")
 ```

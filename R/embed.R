@@ -56,7 +56,7 @@ BERT <- function(model_name, path = system.file(package = "golgotha", "models"))
   if(missing(path)){
     path <- file.path(path, model_name)
     if(!dir.exists(path)){
-      path <- bert_download_model(path)
+      path <- bert_download_model(model_name)
     }
   }
   x <- nlp$Embedder(path = path)
