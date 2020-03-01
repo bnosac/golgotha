@@ -4,8 +4,13 @@
 \alias{predict.BERT}
 \title{Predict alongside a BERT-like Transformer model}
 \usage{
-\method{predict}{BERT}(object, newdata, type = c("embed-sentence",
-  "embed-token", "tokenise"), trace = 10, ...)
+\method{predict}{BERT}(
+  object,
+  newdata,
+  type = c("embed-sentence", "embed-token", "tokenise"),
+  trace = 10,
+  ...
+)
 }
 \arguments{
 \item{object}{an object of class BERT as returned by \code{\link{BERT}}}
