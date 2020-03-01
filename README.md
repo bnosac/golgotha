@@ -19,19 +19,19 @@
 
 ```{r}
 library(golgotha)
-bert_download_model("bert-base-multilingual-uncased")
+transformer_download_model("bert-base-multilingual-uncased")
 ```
 
 - Load the model and get the embedding of sentences / subword tokens or just tokenise
 
 ```{r}
-model <- BERT("bert-base-multilingual-uncased")
+model <- transformer("bert-base-multilingual-uncased")
 x <- data.frame(doc_id = c("doc_1", "doc_2"),
                 text = c("give me back my money or i'll call the police.",
                          "talk to the hand because the face don't want to hear it any more."),
                 stringsAsFactors = FALSE)
-embedding <- predict(model, x, type = "embed-sentence")
-embedding <- predict(model, x, type = "embed-token")
+embedding_sent <- predict(model, x, type = "embed-sentence")
+embedding_tok <- predict(model, x, type = "embed-token")
 tokens    <- predict(model, x, type = "tokenise")
 ```
 
@@ -49,17 +49,19 @@ tokens    <- predict(model, text, type = "tokenise")
 ```
 ## Example with DistilBERT model architecture
 
-- Download a model (e.g. distilbert multilingual lowercased) 
+For any model architecture but `BERT`, you have to provide argument `architecture` within the [10 supported model architectures](https://github.com/huggingface/transformers#model-architectures)
+
+- Download a model (e.g. distilbert multilingual lowercased) and store it in a specific folder
 
 ```{r}
 library(golgotha)
-distilbert_download_model("distilbert-base-multilingual-uncased")
+transformer_download_model("distilbert-base-multilingual-uncased", architecture="DistilBERT", path="~/.cache/transformer/")
 ```
 
-- Load the model and get the embedding of sentences / subword tokens or just tokenise
+- Recall the downloaded model from its path and get the embedding of sentences / subword tokens or just tokenise
 
 ```{r}
-model <- DistilBERT("distilbert-base-multilingual-uncased")
+model <- transformer(apth="~/.cache/transformer/distilbert-base-multilingual-uncased", architecture="DistilBERT")
 x <- data.frame(doc_id = c("doc_1", "doc_2"),
                 text = c("give me back my money or i'll call the police.",
                          "talk to the hand because the face don't want to hear it any more."),
@@ -69,22 +71,22 @@ embedding_tok <- predict(model, x, type = "embed-token")
 tokens    <- predict(model, x, type = "tokenise")
 ```
 
-
-- Some other models
+## Some other models available
+The list is not exhaustive. Refer to [transformer documentation](https://github.com/huggingface/transformers#quick-tour) for latest model list
 
 ```{r}
-model <- BERT("bert-base-multilingual-uncased")
-model <- BERT("bert-base-multilingual-cased")
-model <- BERT("bert-base-dutch-cased")
-model <- BERT("bert-base-uncased")
-model <- BERT("bert-base-cased")
-model <- BERT("bert-base-chinese")
-model <- DistilBERT("distilbert-base-uncased")
-model <- DistilBERT("distilbert-base-uncased-distilled-squad")
-model <- DistilBERT("distilbert-base-cased")
-model <- DistilBERT("distilbert-base-cased-distilled-squad")
-model <- DistilBERT("distilbert-base-german-cased")
-model <- DistilBERT("distilgpt2")
-model <- DistilBERT("distilroberta-base")
-model <- DistilBERT("distilbert-base-multilingual-cased")
+model <- transformer("bert-base-multilingual-uncased")
+model <- transformer("bert-base-multilingual-cased")
+model <- transformer("bert-base-dutch-cased")
+model <- transformer("bert-base-uncased")
+model <- transformer("bert-base-cased")
+model <- transformer("bert-base-chinese")
+model <- transformer("distilbert-base-uncased", architecture = "DistilBERT")
+model <- transformer("distilbert-base-uncased-distilled-squad", architecture = "DistilBERT")
+model <- transformer("distilbert-base-cased", architecture = "DistilBERT")
+model <- transformer("distilbert-base-cased-distilled-squad", architecture = "DistilBERT")
+model <- transformer("distilbert-base-german-cased", architecture = "DistilBERT")
+model <- transformer("distilgpt2", architecture = "DistilBERT")
+model <- transformer("distilroberta-base", architecture = "DistilBERT")
+model <- transformer("distilbert-base-multilingual-cased", architecture = "DistilBERT")
 ```

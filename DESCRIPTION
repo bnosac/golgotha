@@ -19,4 +19,4 @@ Config/reticulate:
       list(package = "transformers", version = "2.4.1", pip = TRUE)
     )
   )    
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2

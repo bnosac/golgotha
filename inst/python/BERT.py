@@ -1,9 +1,26 @@
-from transformers import BertModel, BertTokenizer, DistilBertModel, DistilBertTokenizer, pipeline
+from transformers import *
 import torch
-class BertEmbedder():
-	def __init__(self, path = None):
-		self.model = BertModel.from_pretrained(path)
-		self.tokenizer = BertTokenizer.from_pretrained(path)
+# Transformers has a unified API
+# for 10 transformer architectures and 30 pretrained weights.
+#            Architecture| Model          | Tokenizer          | Pretrained weights shortcut
+MODELS = {    'BERT':          (BertModel,       BertTokenizer,       'bert-base-uncased'),
+              'GTP':           (OpenAIGPTModel,  OpenAIGPTTokenizer,  'openai-gpt'),
+              'GTP-2':         (GPT2Model,       GPT2Tokenizer,       'gpt2'),
+              'CTRL':          (CTRLModel,       CTRLTokenizer,       'ctrl'),
+              'Transformer-XL':(TransfoXLModel,  TransfoXLTokenizer,  'transfo-xl-wt103'),
+              'XLNet':         (XLNetModel,      XLNetTokenizer,      'xlnet-base-cased'),
+              'XLM':           (XLMModel,        XLMTokenizer,        'xlm-mlm-enfr-1024'),
+              'DistilBERT':    (DistilBertModel, DistilBertTokenizer, 'distilbert-base-cased'),
+              'RoBERTa':       (RobertaModel,    RobertaTokenizer,    'roberta-base'),
+              'XLM-RoBERTa':   (XLMRobertaModel, XLMRobertaTokenizer, 'xlm-roberta-base')
+         }
+
+class Embedder():
+	def __init__(self, path = None, architecture="BERT"):
+		model_class, tokenizer_class, pretrained_weights = MODELS[architecture]
+		# load pretrained model/tokenizer
+		self.model = model_class.from_pretrained(path)
+		self.tokenizer = tokenizer_class.from_pretrained(path)
 		self.nlp_feature_extraction = pipeline("feature-extraction", model = self.model, tokenizer = self.tokenizer)
 	def tokenize(self, text):
 		output = self.tokenizer.tokenize(text)
@@ -42,17 +59,11 @@ class DistilBertEmbedder():
 		output = output.numpy()
 		return(output)
 		
-def Bertdownload(model_name = "bert-base-multilingual-uncased", path = None):
-	tokenizer = BertTokenizer.from_pretrained(pretrained_model_name_or_path = model_name)
-	model = BertModel.from_pretrained(pretrained_model_name_or_path = model_name, output_hidden_states = True, output_attentions = False)
+def download(model_name = "bert-base-multilingual-uncased", path = None, architecture="BERT"):
+	model_class, tokenizer_class, pretrained_weights = MODELS[architecture]
+	# load pretrained model/tokenizer
+	tokenizer = tokenizer_class.from_pretrained(pretrained_model_name_or_path = model_name)
+	model = model_class.from_pretrained(pretrained_model_name_or_path = model_name, output_hidden_states = True, output_attentions = False)
 	tokenizer.save_pretrained(path)
 	model.save_pretrained(path)
 	return(path)
-
-def DistilBertdownload(model_name = "distilbert-base-multilingual-uncased", path = None):
-	tokenizer = DistilBertTokenizer.from_pretrained(pretrained_model_name_or_path = model_name)
-	model = DistilBertModel.from_pretrained(pretrained_model_name_or_path = model_name, output_hidden_states = True, output_attentions = False)
-	tokenizer.save_pretrained(path)
-	model.save_pretrained(path)
-	return(path)
-
