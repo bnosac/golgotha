@@ -13,7 +13,7 @@
     - Execute in R: `devtools::install_github("bnosac/golgotha", INSTALL_opts = "--no-multiarch")`
     - Look to the documentation of the functions: `help(package = "golgotha")`
 
-## Example
+## Example with BERT model architecture
 
 - Download a model (e.g. bert multilingual lowercased) 
 
@@ -43,10 +43,32 @@ text <- c("vlieg met me mee naar de horizon want ik hou alleen van jou",
           "http://costes.org/cdso01.mp3", 
           "http://costes.org/mp3.htm")
 text <- setNames(text, c("doc_nl", "doc_fr", "le petit boudin", "thebible"))
-embedding <- predict(model, text, type = "embed-sentence")
-embedding <- predict(model, text, type = "embed-token")
+embedding_sent <- predict(model, text, type = "embed-sentence")
+embedding_tok <- predict(model, text, type = "embed-token")
 tokens    <- predict(model, text, type = "tokenise")
 ```
+## Example with DistilBERT model architecture
+
+- Download a model (e.g. distilbert multilingual lowercased) 
+
+```{r}
+library(golgotha)
+distilbert_download_model("distilbert-base-multilingual-uncased")
+```
+
+- Load the model and get the embedding of sentences / subword tokens or just tokenise
+
+```{r}
+model <- DistilBERT("distilbert-base-multilingual-uncased")
+x <- data.frame(doc_id = c("doc_1", "doc_2"),
+                text = c("give me back my money or i'll call the police.",
+                         "talk to the hand because the face don't want to hear it any more."),
+                stringsAsFactors = FALSE)
+embedding_sent <- predict(model, x, type = "embed-sentence")
+embedding_tok <- predict(model, x, type = "embed-token")
+tokens    <- predict(model, x, type = "tokenise")
+```
+
 
 - Some other models
 
@@ -57,4 +79,12 @@ model <- BERT("bert-base-dutch-cased")
 model <- BERT("bert-base-uncased")
 model <- BERT("bert-base-cased")
 model <- BERT("bert-base-chinese")
+model <- DistilBERT("distilbert-base-uncased")
+model <- DistilBERT("distilbert-base-uncased-distilled-squad")
+model <- DistilBERT("distilbert-base-cased")
+model <- DistilBERT("distilbert-base-cased-distilled-squad")
+model <- DistilBERT("distilbert-base-german-cased")
+model <- DistilBERT("distilgpt2")
+model <- DistilBERT("distilroberta-base")
+model <- DistilBERT("distilbert-base-multilingual-cased")
 ```
