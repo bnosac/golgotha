@@ -20,7 +20,7 @@ bert_download_model <- function(model_name = "bert-base-multilingual-uncased",
     dir.create(path, recursive = TRUE)
   }
   cat(sprintf("Downloading model to %s", path))
-  x <- nlp$download(model_name = model_name, path = path.expand(path))
+  x <- nlp$Bertdownload(model_name = model_name, path = path.expand(path))
   invisible(x)
 }
 
@@ -59,7 +59,74 @@ BERT <- function(model_name, path = system.file(package = "golgotha", "models"))
       path <- bert_download_model(model_name)
     }
   }
-  x <- nlp$Embedder(path = path)
+  x <- nlp$BertEmbedder(path = path)
+  class(x) <- c("BERT", class(x))
+  x
+}
+
+
+#' @title Download a DistilBERT-like Transformers model
+#' @description Download a DistilBERT-like Transformers model
+#' @param model_name character string with the name of the model. E.g. 'distilbert-base-uncased', 'distilbert-base-multilingual-cased', 'distilbert-base-uncased-distilled-squad', 'distilbert-base-cased', 'distilbert-base-german-cased'. Defaults to 'distilbert-base-multilingual-uncased'.
+#' @param path path to a directory on disk where the model will be downloaded to inside a subfolder \code{model_name}
+#' @export
+#' @return invisibly, the directory where the model is saved to
+#' @examples
+#' \dontrun{
+#' distilbert_download_model("distilbert-base-multilingual-uncased")
+#' distilbert_download_model("distilbert-base-german-cased")
+#'
+#' path <- file.path(getwd(), "inst", "models")
+#' distilbert_download_model("distilbert-base-multilingual-uncased", path = path)
+#' distilbert_download_model("distilbert-base-german-cased", path = path)
+#' }
+distilbert_download_model <- function(model_name = "distilbert-base-multilingual-uncased",
+                                path = system.file(package = "golgotha", "models")){
+  path <- file.path(path, model_name)
+  if(!dir.exists(path)){
+    dir.create(path, recursive = TRUE)
+  }
+  cat(sprintf("Downloading model to %s", path))
+  x <- nlp$DistilBertdownload(model_name = model_name, path = path.expand(path))
+  invisible(x)
+}
+
+
+#' @title Load a DistilBERT-like Transformer model
+#' @description Load a DistilBERT-like Transformer model stored on disk
+#' @param model_name character string with the name of the model. E.g. 'distilbert-base-uncased', 'distilbert-base-multilingual-cased', 'distilbert-base-uncased-distilled-squad', 'distilbert-base-cased', 'distilbert-base-german-cased'. Defaults to 'bert-base-multilingual-uncased'.
+#' @param path path to a directory on disk where the model is stored
+#' @export
+#' @return the directory where the model is saved to
+#' @examples
+#' \dontrun{
+#' distilbert_download_model("distilbert-base-multilingual-uncased")
+#' model <- distilBERT("distilbert-base-multilingual-uncased")
+#'
+#' x <- data.frame(doc_id = c("doc_1", "doc_2"),
+#'                 text = c("provide some words to embed", "another sentence of text"),
+#'                 stringsAsFactors = FALSE)
+#' predict(model, x, type = "tokenise")
+#' embedding <- predict(model, x, type = "embed-sentence")
+#' dim(embedding)
+#' embedding <- predict(model, x, type = "embed-token")
+#' str(embedding)
+#' }
+#'
+#' \dontrun{
+#' model_dir <- file.path(getwd(), "inst", "models")
+#' distilbert_download_model("distilbert-base-multilingual-uncased", path = path)
+#' path  <- file.path(getwd(), "inst", "models", "distilbert-base-multilingual-uncased")
+#' model <- distilBERT(path = path)
+#' }
+distilBERT <- function(model_name, path = system.file(package = "golgotha", "models")){
+  if(missing(path)){
+    path <- file.path(path, model_name)
+    if(!dir.exists(path)){
+      path <- distilbert_download_model(model_name)
+    }
+  }
+  x <- nlp$DistilBertEmbedder(path = path)
   class(x) <- c("BERT", class(x))
   x
 }
