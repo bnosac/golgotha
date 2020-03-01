@@ -49,7 +49,7 @@ def Bertdownload(model_name = "bert-base-multilingual-uncased", path = None):
 	model.save_pretrained(path)
 	return(path)
 
-def DistilBertdownload(model_name = distil"bert-base-multilingual-uncased", path = None):
+def DistilBertdownload(model_name = "distilbert-base-multilingual-uncased", path = None):
 	tokenizer = DistilBertTokenizer.from_pretrained(pretrained_model_name_or_path = model_name)
 	model = DistilBertModel.from_pretrained(pretrained_model_name_or_path = model_name, output_hidden_states = True, output_attentions = False)
 	tokenizer.save_pretrained(path)
