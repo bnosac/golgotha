@@ -20,7 +20,7 @@ bert_download_model <- function(model_name = "bert-base-multilingual-uncased",
     dir.create(path, recursive = TRUE)
   }
   cat(sprintf("Downloading model to %s", path))
-  x <- nlp$download(model_name = model_name, path = path.expand(path))
+  x <- nlp$Bertdownload(model_name = model_name, path = path.expand(path))
   invisible(x)
 }
 
