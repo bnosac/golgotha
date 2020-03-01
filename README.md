@@ -13,25 +13,25 @@
     - Execute in R: `devtools::install_github("bnosac/golgotha", INSTALL_opts = "--no-multiarch")`
     - Look to the documentation of the functions: `help(package = "golgotha")`
 
-## Example
+## Example with BERT model architecture
 
 - Download a model (e.g. bert multilingual lowercased) 
 
 ```{r}
 library(golgotha)
-bert_download_model("bert-base-multilingual-uncased")
+transformer_download_model("bert-base-multilingual-uncased")
 ```
 
 - Load the model and get the embedding of sentences / subword tokens or just tokenise
 
 ```{r}
-model <- BERT("bert-base-multilingual-uncased")
+model <- transformer("bert-base-multilingual-uncased")
 x <- data.frame(doc_id = c("doc_1", "doc_2"),
                 text = c("give me back my money or i'll call the police.",
                          "talk to the hand because the face don't want to hear it any more."),
                 stringsAsFactors = FALSE)
-embedding <- predict(model, x, type = "embed-sentence")
-embedding <- predict(model, x, type = "embed-token")
+embedding_sent <- predict(model, x, type = "embed-sentence")
+embedding_tok <- predict(model, x, type = "embed-token")
 tokens    <- predict(model, x, type = "tokenise")
 ```
 
@@ -43,18 +43,50 @@ text <- c("vlieg met me mee naar de horizon want ik hou alleen van jou",
           "http://costes.org/cdso01.mp3", 
           "http://costes.org/mp3.htm")
 text <- setNames(text, c("doc_nl", "doc_fr", "le petit boudin", "thebible"))
-embedding <- predict(model, text, type = "embed-sentence")
-embedding <- predict(model, text, type = "embed-token")
+embedding_sent <- predict(model, text, type = "embed-sentence")
+embedding_tok <- predict(model, text, type = "embed-token")
 tokens    <- predict(model, text, type = "tokenise")
 ```
+## Example with DistilBERT model architecture
 
-- Some other models
+For any model architecture but `BERT`, you have to provide argument `architecture` within the [10 supported model architectures](https://github.com/huggingface/transformers#model-architectures)
+
+- Download a model (e.g. distilbert multilingual lowercased) and store it in a specific folder
 
 ```{r}
-model <- BERT("bert-base-multilingual-uncased")
-model <- BERT("bert-base-multilingual-cased")
-model <- BERT("bert-base-dutch-cased")
-model <- BERT("bert-base-uncased")
-model <- BERT("bert-base-cased")
-model <- BERT("bert-base-chinese")
+library(golgotha)
+transformer_download_model("distilbert-base-multilingual-uncased", architecture="DistilBERT", path="~/.cache/transformer/")
+```
+
+- Recall the downloaded model from its path and get the embedding of sentences / subword tokens or just tokenise
+
+```{r}
+model <- transformer(apth="~/.cache/transformer/distilbert-base-multilingual-uncased", architecture="DistilBERT")
+x <- data.frame(doc_id = c("doc_1", "doc_2"),
+                text = c("give me back my money or i'll call the police.",
+                         "talk to the hand because the face don't want to hear it any more."),
+                stringsAsFactors = FALSE)
+embedding_sent <- predict(model, x, type = "embed-sentence")
+embedding_tok <- predict(model, x, type = "embed-token")
+tokens    <- predict(model, x, type = "tokenise")
+```
+
+## Some other models available
+The list is not exhaustive. Refer to [transformer documentation](https://github.com/huggingface/transformers#quick-tour) for latest model list
+
+```{r}
+model <- transformer("bert-base-multilingual-uncased")
+model <- transformer("bert-base-multilingual-cased")
+model <- transformer("bert-base-dutch-cased")
+model <- transformer("bert-base-uncased")
+model <- transformer("bert-base-cased")
+model <- transformer("bert-base-chinese")
+model <- transformer("distilbert-base-uncased", architecture = "DistilBERT")
+model <- transformer("distilbert-base-uncased-distilled-squad", architecture = "DistilBERT")
+model <- transformer("distilbert-base-cased", architecture = "DistilBERT")
+model <- transformer("distilbert-base-cased-distilled-squad", architecture = "DistilBERT")
+model <- transformer("distilbert-base-german-cased", architecture = "DistilBERT")
+model <- transformer("distilgpt2", architecture = "DistilBERT")
+model <- transformer("distilroberta-base", architecture = "DistilBERT")
+model <- transformer("distilbert-base-multilingual-cased", architecture = "DistilBERT")
 ```

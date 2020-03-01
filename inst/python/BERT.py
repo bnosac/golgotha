@@ -3,16 +3,16 @@ import torch
 # Transformers has a unified API
 # for 10 transformer architectures and 30 pretrained weights.
 #            Architecture| Model          | Tokenizer          | Pretrained weights shortcut
-MODELS = {    'BERT':      (BertModel,       BertTokenizer,       'bert-base-uncased'),
-              'GTP':       (OpenAIGPTModel,  OpenAIGPTTokenizer,  'openai-gpt'),
-              'GTP2':      (GPT2Model,       GPT2Tokenizer,       'gpt2'),
-              'CTRL':      (CTRLModel,       CTRLTokenizer,       'ctrl'),
-              'TransfoXL': (TransfoXLModel,  TransfoXLTokenizer,  'transfo-xl-wt103'),
-              'XLNet':     (XLNetModel,      XLNetTokenizer,      'xlnet-base-cased'),
-              'XLM':       (XLMModel,        XLMTokenizer,        'xlm-mlm-enfr-1024'),
-              'DistilBERT':(DistilBertModel, DistilBertTokenizer, 'distilbert-base-cased'),
-              'Roberta':   (RobertaModel,    RobertaTokenizer,    'roberta-base'),
-              'XLMRoberta':(XLMRobertaModel, XLMRobertaTokenizer, 'xlm-roberta-base')
+MODELS = {    'BERT':          (BertModel,       BertTokenizer,       'bert-base-uncased'),
+              'GTP':           (OpenAIGPTModel,  OpenAIGPTTokenizer,  'openai-gpt'),
+              'GTP-2':         (GPT2Model,       GPT2Tokenizer,       'gpt2'),
+              'CTRL':          (CTRLModel,       CTRLTokenizer,       'ctrl'),
+              'Transformer-XL':(TransfoXLModel,  TransfoXLTokenizer,  'transfo-xl-wt103'),
+              'XLNet':         (XLNetModel,      XLNetTokenizer,      'xlnet-base-cased'),
+              'XLM':           (XLMModel,        XLMTokenizer,        'xlm-mlm-enfr-1024'),
+              'DistilBERT':    (DistilBertModel, DistilBertTokenizer, 'distilbert-base-cased'),
+              'RoBERTa':       (RobertaModel,    RobertaTokenizer,    'roberta-base'),
+              'XLM-RoBERTa':   (XLMRobertaModel, XLMRobertaTokenizer, 'xlm-roberta-base')
          }
 
 class Embedder():

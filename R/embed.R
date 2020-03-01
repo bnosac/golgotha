@@ -75,11 +75,13 @@ BERT <- function(model_name, path = system.file(package = "golgotha", "models"))
 #' @examples
 #' \dontrun{
 #' transformer_download_model("bert-base-multilingual-uncased")
-#' transformer_download_model(model_name= "distilbert-base-multilingual-uncased", architecture="DistilBERT")
+#' transformer_download_model(model_name = "distilbert-base-multilingual-uncased",
+#'                            architecture = "DistilBERT")
 #'
 #' path <- file.path(getwd(), "inst", "models")
 #' transformer_download_model("bert-base-multilingual-uncased", path = path)
-#' transformer_download_model(model_name= "distilbert-base-multilingual-uncased", architecture="DistilBERT", path = path)
+#' transformer_download_model(model_name = "distilbert-base-multilingual-uncased",
+#'                            architecture ="DistilBERT", path = path)
 #' }
 transformer_download_model <- function(model_name = "bert-base-multilingual-uncased",
                                        architecture="BERT", path = system.file(package = "golgotha", "models")){
@@ -87,8 +89,8 @@ transformer_download_model <- function(model_name = "bert-base-multilingual-unca
   if(!dir.exists(path)){
     dir.create(path, recursive = TRUE)
   }
-  assertthat::assert_that(architecture %in% c("BERT","GTP","GTP2","CTRL","TransfoXL","XLNet","XLM","DistilBERT","Roberta","XLMRoberta"),
-                          msg="Specified model architecture is not available, \nplease choose architecture  within 'BERT','GTP','GTP2','CTRL','TransfoXL','XLNet','XLM','DistilBERT','Roberta' or 'XLMRoberta'")
+  assertthat::assert_that(architecture %in% c("BERT","GTP","GTP-2","CTRL","Transformer-XL","XLNet","XLM","DistilBERT","RoBERTa","XLM-RoBERTa"),
+                          msg="Specified model architecture is not available, \nplease choose architecture  within 'BERT','GTP','GTP-2','CTRL','Transformer-XL','XLNet','XLM','DistilBERT','RoBERTa' or 'XLM-RoBERTa'")
   cat(sprintf("Downloading model to %s", path))
   x <- nlp$download(model_name = model_name, architecture = architecture, path = path.expand(path))
   invisible(x)
@@ -119,7 +121,8 @@ transformer_download_model <- function(model_name = "bert-base-multilingual-unca
 #'
 #' \dontrun{
 #' model_dir <- file.path(getwd(), "inst", "models")
-#' transformer_download_model("distilbert-base-multilingual-uncased", architecture = "DistilBERT", path = model_dir)
+#' transformer_download_model("distilbert-base-multilingual-uncased",
+#'                            architecture = "DistilBERT", path = model_dir)
 #' path  <- file.path(getwd(), "inst", "models", "distilbert-base-multilingual-uncased")
 #' model <- transformer(path = path, architecture = "DistilBERT")
 #' }
@@ -130,8 +133,8 @@ transformer <- function(model_name, path = system.file(package = "golgotha", "mo
       path <- transformer_download_model(model_name, architecture = architecture)
     }
   }
-  assertthat::assert_that(architecture %in% c("BERT","GTP","GTP2","CTRL","TransfoXL","XLNet","XLM","DistilBERT","Roberta","XLMRoberta"),
-                          msg="Specified model architecture is not available, \nplease choose architecture  within 'BERT','GTP','GTP2','CTRL','TransfoXL','XLNet','XLM','DistilBERT','Roberta' or 'XLMRoberta'")
+  assertthat::assert_that(architecture %in% c("BERT","GTP","GTP-2","CTRL","Transformer-XL","XLNet","XLM","DistilBERT","RoBERTa","XLM-RoBERTa"),
+                          msg="Specified model architecture is not available, \nplease choose architecture  within 'BERT','GTP','GTP-2','CTRL','Transformer-XL','XLNet','XLM','DistilBERT','RoBERTa' or 'XLM-RoBERTa'")
   path = path.expand(path)
   x <- nlp$Embedder(path = path, architecture = architecture)
   class(x) <- c("Transformer", class(x))
