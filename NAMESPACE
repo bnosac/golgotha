@@ -3,4 +3,6 @@
 S3method(predict,BERT)
 export(BERT)
 export(bert_download_model)
+export(distilBERT)
+export(distilbert_download_model)
 import(reticulate)

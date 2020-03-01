@@ -59,7 +59,8 @@ BERT <- function(model_name, path = system.file(package = "golgotha", "models"))
       path <- bert_download_model(model_name)
     }
   }
-  x <- nlp$BertEmbedder(path = path.expand(path))
+  path = path.expand(path)
+  x <- nlp$BertEmbedder(path = path)
   class(x) <- c("BERT", class(x))
   x
 }
@@ -126,7 +127,8 @@ distilBERT <- function(model_name, path = system.file(package = "golgotha", "mod
       path <- distilbert_download_model(model_name)
     }
   }
-  x <- nlp$DistilBertEmbedder(path = path.expand(path))
+  path = path.expand(path)
+  x <- nlp$DistilBertEmbedder(path = path)
   class(x) <- c("BERT", class(x))
   x
 }
