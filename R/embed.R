@@ -67,21 +67,22 @@ BERT <- function(model_name, path = system.file(package = "golgotha", "models"))
 
 #' @title Download a Transformers model
 #' @description Download a Transformers model
-#' @param model_name character string with the name of the model. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased'. Defaults to 'bert-base-multilingual-uncased'.
-#' @param architecture character string with the model architecture family name. E.g. 'BERT', 'DistilBERT', 'Roberta',.... Defaults to 'BERT'.
+#' @param architecture character string of the model architecture family name. Currently supported architecture are 'BERT','GTP','GTP-2','CTRL','Transformer-XL','XLNet','XLM','DistilBERT','RoBERTa' and 'XLM-RoBERTa'. Defaults to 'BERT'
+#' @param model_name character string of the choosen model within the architecture family. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased' for 'BERT' architecture family. Defaults to 'bert-base-multilingual-uncased'.
 #' @param path path to a directory on disk where the model will be downloaded to inside a subfolder \code{model_name}
 #' @export
 #' @return invisibly, the directory where the model is saved to
 #' @examples
 #' \dontrun{
 #' transformer_download_model("bert-base-multilingual-uncased")
-#' transformer_download_model(model_name = "distilbert-base-multilingual-uncased",
-#'                            architecture = "DistilBERT")
+#' transformer_download_model(architecture = "DistilBERT",
+#'                            model_name = "distilbert-base-multilingual-uncased")
 #'
 #' path <- file.path(getwd(), "inst", "models")
 #' transformer_download_model("bert-base-multilingual-uncased", path = path)
-#' transformer_download_model(model_name = "distilbert-base-multilingual-uncased",
-#'                            architecture ="DistilBERT", path = path)
+#' transformer_download_model(architecture ="DistilBERT",
+#'                            model_name = "distilbert-base-multilingual-uncased",
+#'                            path = path)
 #' }
 transformer_download_model <- function(model_name = "bert-base-multilingual-uncased",
                                        architecture="BERT", path = system.file(package = "golgotha", "models")){
@@ -89,8 +90,7 @@ transformer_download_model <- function(model_name = "bert-base-multilingual-unca
   if(!dir.exists(path)){
     dir.create(path, recursive = TRUE)
   }
-  assertthat::assert_that(architecture %in% c("BERT","GTP","GTP-2","CTRL","Transformer-XL","XLNet","XLM","DistilBERT","RoBERTa","XLM-RoBERTa"),
-                          msg="Specified model architecture is not available, \nplease choose architecture  within 'BERT','GTP','GTP-2','CTRL','Transformer-XL','XLNet','XLM','DistilBERT','RoBERTa' or 'XLM-RoBERTa'")
+  stopifnot(architecture %in% c("BERT","GTP","GTP-2","CTRL","Transformer-XL","XLNet","XLM","DistilBERT","RoBERTa","XLM-RoBERTa"))
   cat(sprintf("Downloading model to %s", path))
   x <- nlp$download(model_name = model_name, architecture = architecture, path = path.expand(path))
   invisible(x)
@@ -99,8 +99,8 @@ transformer_download_model <- function(model_name = "bert-base-multilingual-unca
 
 #' @title Load a Transformer model
 #' @description Load a Transformer model stored on disk
-#' @param model_name character string with the name of the model. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'distilbert-base-cased', 'bert-base-dutch-cased'. Defaults to 'bert-base-multilingual-uncased'.
-#' @param architecture character string with the model architecture family name. E.g. 'BERT', 'DistilBERT', 'Roberta',.... Defaults to 'BERT'.
+#' @param architecture character string of the model architecture family name. Currently supported architecture are 'BERT','GTP','GTP-2','CTRL','Transformer-XL','XLNet','XLM','DistilBERT','RoBERTa' and 'XLM-RoBERTa'. Defaults to 'BERT'
+#' @param model_name character string of the choosen model within the architecture family. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased' for 'BERT' architecture family. Defaults to 'bert-base-multilingual-uncased'.
 #' @param path path to a directory on disk where the model is stored
 #' @export
 #' @return the directory where the model is saved to
@@ -121,10 +121,11 @@ transformer_download_model <- function(model_name = "bert-base-multilingual-unca
 #'
 #' \dontrun{
 #' model_dir <- file.path(getwd(), "inst", "models")
-#' transformer_download_model("distilbert-base-multilingual-uncased",
-#'                            architecture = "DistilBERT", path = model_dir)
+#' transformer_download_model(architecture = "DistilBERT",
+#'                            model_name = "distilbert-base-multilingual-uncased",
+#'                            path = model_dir)
 #' path  <- file.path(getwd(), "inst", "models", "distilbert-base-multilingual-uncased")
-#' model <- transformer(path = path, architecture = "DistilBERT")
+#' model <- transformer(architecture = "DistilBERT", path = path)
 #' }
 transformer <- function(model_name, path = system.file(package = "golgotha", "models"), architecture = "BERT"){
   if(missing(path)){
@@ -133,8 +134,7 @@ transformer <- function(model_name, path = system.file(package = "golgotha", "mo
       path <- transformer_download_model(model_name, architecture = architecture)
     }
   }
-  assertthat::assert_that(architecture %in% c("BERT","GTP","GTP-2","CTRL","Transformer-XL","XLNet","XLM","DistilBERT","RoBERTa","XLM-RoBERTa"),
-                          msg="Specified model architecture is not available, \nplease choose architecture  within 'BERT','GTP','GTP-2','CTRL','Transformer-XL','XLNet','XLM','DistilBERT','RoBERTa' or 'XLM-RoBERTa'")
+  stopifnot(architecture %in% c("BERT","GTP","GTP-2","CTRL","Transformer-XL","XLNet","XLM","DistilBERT","RoBERTa","XLM-RoBERTa"))
   path = path.expand(path)
   x <- nlp$Embedder(path = path, architecture = architecture)
   class(x) <- c("Transformer", class(x))

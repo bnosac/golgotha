@@ -11,9 +11,9 @@ transformer_download_model(
 )
 }
 \arguments{
-\item{model_name}{character string with the name of the model. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased'. Defaults to 'bert-base-multilingual-uncased'.}
+\item{model_name}{character string of the choosen model within the architecture family. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased' for 'BERT' architecture family. Defaults to 'bert-base-multilingual-uncased'.}
 
-\item{architecture}{character string with the model architecture family name. E.g. 'BERT', 'DistilBERT', 'Roberta',.... Defaults to 'BERT'.}
+\item{architecture}{character string of the model architecture family name. Currently supported architecture are 'BERT','GTP','GTP-2','CTRL','Transformer-XL','XLNet','XLM','DistilBERT','RoBERTa' and 'XLM-RoBERTa'. Defaults to 'BERT'}
 
 \item{path}{path to a directory on disk where the model will be downloaded to inside a subfolder \code{model_name}}
 }
@@ -26,10 +26,13 @@ Download a Transformers model
 \examples{
 \dontrun{
 transformer_download_model("bert-base-multilingual-uncased")
-transformer_download_model(model_name= "distilbert-base-multilingual-uncased", architecture="DistilBERT")
+transformer_download_model(architecture = "DistilBERT",
+                           model_name = "distilbert-base-multilingual-uncased")
 
 path <- file.path(getwd(), "inst", "models")
 transformer_download_model("bert-base-multilingual-uncased", path = path)
-transformer_download_model(model_name= "distilbert-base-multilingual-uncased", architecture="DistilBERT", path = path)
+transformer_download_model(architecture ="DistilBERT",
+                           model_name = "distilbert-base-multilingual-uncased",
+                           path = path)
 }
 }
