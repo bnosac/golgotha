@@ -2,7 +2,7 @@ from transformers import *
 import torch
 # Transformers has a unified API
 # for 10 transformer architectures and 30 pretrained weights.
-#            Architecture| Model          | Tokenizer          | Pretrained weights shortcut
+#            Architecture      | Model          | Tokenizer          | Pretrained weights shortcut
 MODELS = {    'BERT':          (BertModel,       BertTokenizer,       'bert-base-uncased'),
               'GTP':           (OpenAIGPTModel,  OpenAIGPTTokenizer,  'openai-gpt'),
               'GTP-2':         (GPT2Model,       GPT2Tokenizer,       'gpt2'),
@@ -21,27 +21,6 @@ class Embedder():
 		# load pretrained model/tokenizer
 		self.model = model_class.from_pretrained(path)
 		self.tokenizer = tokenizer_class.from_pretrained(path)
-		self.nlp_feature_extraction = pipeline("feature-extraction", model = self.model, tokenizer = self.tokenizer)
-	def tokenize(self, text):
-		output = self.tokenizer.tokenize(text)
-		return(output)
-	def embed_tokens(self, text):
-		output = self.nlp_feature_extraction(text)
-		return(output)
-	def embed_sentence(self, text, max_length = 512):
-		input_ids = self.tokenizer.encode(text, add_special_tokens = True, max_length = max_length, return_tensors = 'pt')		
-		with torch.no_grad():
-			output_tuple = self.model(input_ids)
-  		
-		output = output_tuple[0].squeeze()
-		output = output.mean(dim = 0)
-		output = output.numpy()
-		return(output)
-		
-class DistilBertEmbedder():
-	def __init__(self, path = None):
-		self.model = DistilBertModel.from_pretrained(path)
-		self.tokenizer = DistilBertTokenizer.from_pretrained(path)
 		self.nlp_feature_extraction = pipeline("feature-extraction", model = self.model, tokenizer = self.tokenizer)
 	def tokenize(self, text):
 		output = self.tokenizer.tokenize(text)
