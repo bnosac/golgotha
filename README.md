@@ -61,7 +61,7 @@ transformer_download_model("distilbert-base-multilingual-uncased", architecture=
 - Recall the downloaded model from its path and get the embedding of sentences / subword tokens or just tokenise
 
 ```{r}
-model <- transformer(apth="~/.cache/transformer/distilbert-base-multilingual-uncased", architecture="DistilBERT")
+model <- transformer(path="~/.cache/transformer/distilbert-base-multilingual-uncased", architecture="DistilBERT")
 x <- data.frame(doc_id = c("doc_1", "doc_2"),
                 text = c("give me back my money or i'll call the police.",
                          "talk to the hand because the face don't want to hear it any more."),
