@@ -2,7 +2,7 @@
 % Please edit documentation in R/embed.R
 \name{bert_download_model}
 \alias{bert_download_model}
-\title{Download a BERT-like Transformers model}
+\title{Download a BERT-like Transformers model (Deprecated)}
 \usage{
 bert_download_model(
   model_name = "bert-base-multilingual-uncased",
@@ -18,7 +18,7 @@ bert_download_model(
 invisibly, the directory where the model is saved to
 }
 \description{
-Download a BERT-like Transformers model
+Download a BERT-like Transformers model (Deprecated)
 }
 \examples{
 \dontrun{

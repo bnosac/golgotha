@@ -2,7 +2,7 @@
 % Please edit documentation in R/embed.R
 \name{predict.BERT}
 \alias{predict.BERT}
-\title{Predict alongside a BERT-like Transformer model}
+\title{Predict alongside a BERT-like Transformer model (Deprecated)}
 \usage{
 \method{predict}{BERT}(
   object,
@@ -32,7 +32,7 @@ depending on the argument \code{type} the function returns:
 }
 }
 \description{
-Extract features from the BERT model namely get
+Extract features from the BERT model namely get (Deprecated)
 \itemize{
 \item the embedding of a sentence
 \item the embedding of the tokens of the sentence

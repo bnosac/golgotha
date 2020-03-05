@@ -28,6 +28,9 @@ class Embedder():
 	def embed_tokens(self, text):
 		output = self.nlp_feature_extraction(text)
 		return(output)
+	def attention(self, text):
+		output = self.nlp_feature_extraction(text, )
+		return(output)
 	def embed_sentence(self, text, max_length = 512):
 		input_ids = self.tokenizer.encode(text, add_special_tokens = True, max_length = max_length, return_tensors = 'pt')		
 		with torch.no_grad():

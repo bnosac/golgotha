@@ -48,9 +48,9 @@ x <- data.frame(doc_id = c("doc_1", "doc_2"),
                 text = c("provide some words to embed", "another sentence of text"),
                 stringsAsFactors = FALSE)
 predict(model, x, type = "tokenise")
-embedding <- predict(model, x, type = "embed-sentence")
-dim(embedding)
-embedding <- predict(model, x, type = "embed-token")
-str(embedding)
+embedding_sent <- predict(model, x, type = "embed-sentence")
+dim(embedding_sent)
+embedding_tok <- predict(model, x, type = "embed-token")
+str(embedding_tok)
 }
 }
