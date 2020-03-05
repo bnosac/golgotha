@@ -30,7 +30,7 @@ transformer_download_model <- function(model_name = "bert-base-multilingual-unca
     }
   }
   validate_architecture(architecture)
-  cat(sprintf("Downloading model to %s", path))
+  cat(sprintf("Downloading model to %s", path), sep = "\n")
   x <- nlp$download(model_name = model_name, architecture = architecture, path = path.expand(path))
   invisible(x)
 }
@@ -178,8 +178,8 @@ bert_download_model <- function(model_name = "bert-base-multilingual-uncased",
 }
 
 
-#' @title Load a BERT-like Transformer model (Deprecated)
-#' @description Load a BERT-like Transformer model stored on disk (Deprecated)
+#' @title Load a BERT-like Transformer model
+#' @description Load a BERT-like Transformer model stored on disk
 #' @param model_name character string with the name of the model. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased'. Defaults to 'bert-base-multilingual-uncased'.
 #' @param path path to a directory on disk where the model is stored
 #' @export
