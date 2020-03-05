@@ -24,7 +24,6 @@ set.seed(123456789)
 @
 
 \section{Usage}
-\subsection{Example}
 BERT models are Transformer-based models which are constructed on huge volumes of text and allow to get the embedding of a token within its context or the embedding of sentences. The transformers (\url{https://github.com/huggingface/transformers}) module gives access to these pretrained models and provides ready-made functionalities to work with these. \textbf{This R package facilitates working with these heavy-weight models and provides easy functions to get sentence and token embeddings}. Just that, nothing more, nothing less. It pretty much looks like this.\\
 
 \begin{center}
@@ -33,7 +32,8 @@ BERT models are Transformer-based models which are constructed on huge volumes o
 
 The NLP community has created many types of Transformer architectures. A list of these can be found at \url{https://github.com/huggingface/transformers#model-architectures}. In this example we will use a model which was trained on a diverse set of Wikipedia dumps, covering 102 languages. The model is named \emph{bert-base-multilingual-uncased}.\\
 
-\subsubsection{BERT example}
+\section{BERT example}
+\subsection{Model}
 The following code will download the \emph{bert-base-multilingual-uncased} model once. By default it downloads the mode in the models folder of the package, if this was the first time you were referencing this model. Note model size is approx 600Mb. Next time you reference the model, it will just download it from your hard disk directly.
 
 <<>>=
@@ -42,6 +42,7 @@ model <- BERT("bert-base-multilingual-uncased")
 model
 @
 
+\subsection{Embeddings}
 Once you have the model, you can start getting the embeddings of either
 \begin{itemize}
   \item Sentences
@@ -53,11 +54,14 @@ These embeddings can next be used in your downstream tasks. In case of \emph{emb
 Note that getting these embeddings can take a while as these models are huge. To print a trace of the evolution, use the \emph{trace} argument.
 
 <<>>=
-x <- data.frame(doc_id = c("doc_1", "doc_2"),
-                text = c("give me back my money or i'll call the police.",
-                         "talk to the hand because the face don't want to hear it any more."),
-                stringsAsFactors = FALSE)
+x <- data.frame(
+  doc_id = c("doc_1", "doc_2"),
+  text = c("give me back my money or i'll call the police.",
+           "talk to the hand because the face don't want to hear it any more."),
+  stringsAsFactors = FALSE)
 embedding <- predict(model, x, type = "embed-sentence", trace = 10)
+class(embedding)
+str(embedding)
 dim(embedding)
 embedding <- predict(model, x, type = "embed-token", trace = FALSE)
 str(embedding)
@@ -70,7 +74,7 @@ tokens <- predict(model, x, type = "tokenise")
 tokens
 @
 
-\subsubsection{Other Transformer models}
+\subsection{Other Transformer models}
 The package allows to get embeddings alongside other Transformer architectures as well. To get these models, use the transformer function and provide the appropriate model name and architecture. The package works with the following architectures: 'BERT', 'GPT', 'GPT-2', 'CTRL', 'Transformer-XL', 'XLNet', 'XLM', 'DistilBERT', 'RoBERTa' and 'XLM-RoBERTa'.\\
 
 Some examples are given below. More model names can be found at \url{https://github.com/huggingface/transformers#model-architectures}.
@@ -83,7 +87,6 @@ model <- transformer("bert-base-uncased")
 model <- transformer("bert-base-cased")
 model <- transformer("bert-base-chinese")
 model <- transformer("xlm-roberta-base", architecture = "XLM-RoBERTa")
-model <- transformer("distilbert-base-uncased-distilled-squad", architecture = "DistilBERT")
 model <- transformer("distilbert-base-german-cased", architecture = "DistilBERT")
 model <- transformer("distilbert-base-multilingual-cased", architecture = "DistilBERT")
 model <- transformer("distilroberta-base", architecture = "DistilBERT")
@@ -91,14 +94,18 @@ model <- transformer("distilbert-base-cased", architecture = "DistilBERT")
 embedding <- predict(model, "Just give me these embeddings please.")
 @
 
-\subsubsection{Fun}
+\subsection{Fun}
 I basically said 'embeddings, nothing more, nothing less'. Unfortunately I couldn't resist in also wrapping an example of the \emph{generate} functionality to see what a GPT model would provide as extra text following your sequence of words.
 
-<<>>=
+<<results='hide'>>=
 model  <- transformer("distilgpt2", architecture = "GPT-2-LMHead")
+@
+
+<<>>=
 newtxt <- predict(model, c("I am thinking about ",
                            "Roses are red, violets are",
-                           "R is a programming language for"), type = "generate", max_length = 15L)
+                           "R is a programming language for"),
+                  type = "generate", max_length = 15L)
 newtxt
 @
 
