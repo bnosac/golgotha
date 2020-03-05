@@ -28,9 +28,9 @@ BIG_MODELS = data.frame(
 )
 for (i in 1:nrow(MODELS)) {
   test_that(paste0(MODELS[i,"architecture"], " model architecture can be download"),{
-    model_path <- file.path("~/.cache/RBERT")
+    model_path <- file.path("~/.cache/Transformers/")
     transformer_download_model(architecture=MODELS[i,"architecture"], model_name =MODELS[i,"weights"], path=model_path)
-    expect_true(file.exists(paste0(model_path,"/",MODELS[i,"weights"],"/config.json")))
+    expect_true(file.exists(paste0(model_path,MODELS[i,"weights"],"/config.json")))
   })
 }
 
