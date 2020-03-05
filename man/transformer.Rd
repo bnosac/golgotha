@@ -15,7 +15,7 @@ transformer(model_name, architecture = "BERT",
 \item{path}{path to a directory on disk where the model is stored}
 }
 \value{
-the directory where the model is saved to
+an object of class Transformer
 }
 \description{
 Load a Transformer model stored on disk

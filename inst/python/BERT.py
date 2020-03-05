@@ -12,13 +12,13 @@ MODELS = {    'BERT':          (BertModel,       BertTokenizer),
               'XLM':           (XLMModel,        XLMTokenizer),
               'DistilBERT':    (DistilBertModel, DistilBertTokenizer),
               'RoBERTa':       (RobertaModel,    RobertaTokenizer),
-              'XLM-RoBERTa':   (XLMRobertaModel, XLMRobertaTokenizer)
+              'XLM-RoBERTa':   (XLMRobertaModel, XLMRobertaTokenizer),
+              'GPT-2-LMHead':  (GPT2LMHeadModel, GPT2Tokenizer)
          }
 
 class Embedder():
 	def __init__(self, path = None, architecture = "BERT"):
 		model_class, tokenizer_class = MODELS[architecture]
-		self.architecture = architecture
 		self.model = model_class.from_pretrained(path)
 		self.tokenizer = tokenizer_class.from_pretrained(path)
 		self.nlp_feature_extraction = pipeline("feature-extraction", model = self.model, tokenizer = self.tokenizer)
@@ -28,6 +28,11 @@ class Embedder():
 	def embed_tokens(self, text):
 		output = self.nlp_feature_extraction(text)
 		return(output)
+	def generate(self, text, max_length = 50):
+	  input_ids = self.tokenizer.encode(text, return_tensors="pt")
+	  generated = self.model.generate(input_ids, max_length = max_length)
+	  newtext = self.tokenizer.decode(generated.tolist()[0])
+	  return(newtext)
 	def embed_sentence(self, text, max_length = 512):
 		input_ids = self.tokenizer.encode(text, add_special_tokens = True, max_length = max_length, return_tensors = 'pt')		
 		with torch.no_grad():

@@ -24,6 +24,7 @@ depending on the argument \code{type} the function returns:
 \item embed-sentence: A matrix with the embedding of the text, where the doc_id's are in the rownames
 \item embed-token: A list of matrices with token-level embeddings, one for each doc_id. The names of the list are identified by the doc_id. Note that depending on the model you will have CLS / SEP tokens at the start/back and the number of rows of the matrix is also limited by the model
 \item tokenise: A list of subword (wordpiece) tokens. The names of the list are identified by the doc_id.
+\item generate: generate tokens following the provided text sequence
 }
 }
 \description{
