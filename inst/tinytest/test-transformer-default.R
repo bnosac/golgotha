@@ -11,7 +11,7 @@ expect_true(file.exists(file.path(model_path, "vocab.txt")))
 model <- transformer("bert-base-multilingual-uncased")
 expect_true(inherits(model, "Transformer"))
 model <- BERT("bert-base-multilingual-uncased")
-expect_true(inherits(model, "BERT"))
+expect_true(inherits(model, "Transformer"))
 
 
 ## Test scoring
