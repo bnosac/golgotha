@@ -10,6 +10,12 @@ nlp <- new.env()
   source_python(pyscript, envir = nlp, convert = TRUE)
 }
 
+known_architectures <- c("BERT", "GPT", "GPT-2", "CTRL", "Transformer-XL", "XLNet", "XLM", "DistilBERT", "RoBERTa", "XLM-RoBERTa")
+validate_architecture <- function(architecture){
+  if(!architecture %in% known_architectures){
+    stop(sprintf("%s not in list of known architectures: %s", paste(architecture, collapse = ", "), paste(known_architectures, collapse = ", ")))
+  }
+}
 
 #' @import reticulate
 NULL

@@ -4,18 +4,15 @@
 \alias{transformer}
 \title{Load a Transformer model}
 \usage{
-transformer(
-  model_name,
-  path = system.file(package = "golgotha", "models"),
-  architecture = "BERT"
-)
+transformer(model_name, architecture = "BERT",
+  path = system.file(package = "golgotha", "models"))
 }
 \arguments{
-\item{model_name}{character string of the choosen model within the architecture family. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased' for 'BERT' architecture family. Defaults to 'bert-base-multilingual-uncased'.}
+\item{model_name}{character string of the chosen model within the architecture family. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased' for 'BERT' architecture family. Defaults to 'bert-base-multilingual-uncased'.}
+
+\item{architecture}{character string of the model architecture family name. Currently supported architecture are 'BERT', 'GPT', 'GPT-2', 'CTRL', 'Transformer-XL', 'XLNet', 'XLM', 'DistilBERT', 'RoBERTa' and 'XLM-RoBERTa'. Defaults to 'BERT'}
 
 \item{path}{path to a directory on disk where the model is stored}
-
-\item{architecture}{character string of the model architecture family name. Currently supported architecture are 'BERT','GTP','GTP-2','CTRL','Transformer-XL','XLNet','XLM','DistilBERT','RoBERTa' and 'XLM-RoBERTa'. Defaults to 'BERT'}
 }
 \value{
 the directory where the model is saved to
@@ -32,23 +29,23 @@ x <- data.frame(doc_id = c("doc_1", "doc_2"),
                 text = c("provide some words to embed", "another sentence of text"),
                 stringsAsFactors = FALSE)
 predict(model, x, type = "tokenise")
-embedding_sent <- predict(model, x, type = "embed-sentence")
-dim(embedding_sent)
-embedding_tok <- predict(model, x, type = "embed-token")
-str(embedding_tok)
+embedding <- predict(model, x, type = "embed-sentence")
+dim(embedding)
+embedding <- predict(model, x, type = "embed-token")
+str(embedding)
 }
 
 \dontrun{
 model_dir <- file.path(getwd(), "inst", "models")
 transformer_download_model(architecture = "DistilBERT",
-                           model_name = "distilbert-base-multilingual-uncased",
+                           model_name = "distilbert-base-multilingual-cased",
                            path = model_dir)
-path  <- file.path(getwd(), "inst", "models", "distilbert-base-multilingual-uncased")
+path  <- file.path(getwd(), "inst", "models", "distilbert-base-multilingual-cased")
 model <- transformer(architecture = "DistilBERT", path = path)
 predict(model, x, type = "tokenise")
-embedding_sent <- predict(model, x, type = "embed-sentence")
-dim(embedding_sent)
-embedding_tok <- predict(model, x, type = "embed-token")
-str(embedding_tok)
+embedding <- predict(model, x, type = "embed-sentence")
+dim(embedding)
+embedding <- predict(model, x, type = "embed-token")
+str(embedding)
 }
 }

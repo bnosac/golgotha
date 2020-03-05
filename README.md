@@ -30,8 +30,8 @@ x <- data.frame(doc_id = c("doc_1", "doc_2"),
                 text = c("give me back my money or i'll call the police.",
                          "talk to the hand because the face don't want to hear it any more."),
                 stringsAsFactors = FALSE)
-embedding_sent <- predict(model, x, type = "embed-sentence")
-embedding_tok <- predict(model, x, type = "embed-token")
+embedding <- predict(model, x, type = "embed-sentence")
+embedding <- predict(model, x, type = "embed-token")
 tokens    <- predict(model, x, type = "tokenise")
 ```
 
@@ -43,36 +43,38 @@ text <- c("vlieg met me mee naar de horizon want ik hou alleen van jou",
           "http://costes.org/cdso01.mp3", 
           "http://costes.org/mp3.htm")
 text <- setNames(text, c("doc_nl", "doc_fr", "le petit boudin", "thebible"))
-embedding_sent <- predict(model, text, type = "embed-sentence")
-embedding_tok <- predict(model, text, type = "embed-token")
+embedding <- predict(model, text, type = "embed-sentence")
+embedding <- predict(model, text, type = "embed-token")
 tokens    <- predict(model, text, type = "tokenise")
 ```
+
 ## Example with DistilBERT model architecture
 
 For any model architecture but `BERT`, you have to provide argument `architecture` within the [10 supported model architectures](https://github.com/huggingface/transformers#model-architectures)
 
-- Download a model (e.g. distilbert multilingual lowercased) and store it in a specific folder
+- Download a model (e.g. distilbert multilingual cased), it will be by default stored in the `system.file(package = "golgotha",
+  "models")` folder. If you want to change this, use the path argument of `transformer_download_model`
 
 ```{r}
-library(golgotha)
-transformer_download_model("distilbert-base-multilingual-uncased", architecture="DistilBERT", path="~/.cache/transformer/")
+transformer_download_model("distilbert-base-multilingual-cased", architecture = "DistilBERT")
 ```
 
-- Recall the downloaded model from its path and get the embedding of sentences / subword tokens or just tokenise
+- Once downloaded, you can just load the model and start embedding your text
 
 ```{r}
-model <- transformer(path="~/.cache/transformer/distilbert-base-multilingual-uncased", architecture="DistilBERT")
+model <- transformer("distilbert-base-multilingual-uncased", architecture = "DistilBERT")
 x <- data.frame(doc_id = c("doc_1", "doc_2"),
                 text = c("give me back my money or i'll call the police.",
                          "talk to the hand because the face don't want to hear it any more."),
                 stringsAsFactors = FALSE)
-embedding_sent <- predict(model, x, type = "embed-sentence")
-embedding_tok <- predict(model, x, type = "embed-token")
+embedding <- predict(model, x, type = "embed-sentence")
+embedding <- predict(model, x, type = "embed-token")
 tokens    <- predict(model, x, type = "tokenise")
 ```
 
 ## Some other models available
-The list is not exhaustive. Refer to [transformer documentation](https://github.com/huggingface/transformers#quick-tour) for latest model list
+
+The list is not exhaustive. Look to the [transformer documentation](https://github.com/huggingface/transformers#quick-tour) for an up-to-date model list. Available models will also depend on the version of the transformer module you have installed.
 
 ```{r}
 model <- transformer("bert-base-multilingual-uncased")
@@ -81,12 +83,10 @@ model <- transformer("bert-base-dutch-cased")
 model <- transformer("bert-base-uncased")
 model <- transformer("bert-base-cased")
 model <- transformer("bert-base-chinese")
-model <- transformer("distilbert-base-uncased", architecture = "DistilBERT")
-model <- transformer("distilbert-base-uncased-distilled-squad", architecture = "DistilBERT")
 model <- transformer("distilbert-base-cased", architecture = "DistilBERT")
-model <- transformer("distilbert-base-cased-distilled-squad", architecture = "DistilBERT")
+model <- transformer("distilbert-base-uncased-distilled-squad", architecture = "DistilBERT")
 model <- transformer("distilbert-base-german-cased", architecture = "DistilBERT")
-model <- transformer("distilgpt2", architecture = "DistilBERT")
-model <- transformer("distilroberta-base", architecture = "DistilBERT")
 model <- transformer("distilbert-base-multilingual-cased", architecture = "DistilBERT")
+model <- transformer("distilroberta-base", architecture = "DistilBERT")
+
 ```

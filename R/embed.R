@@ -1,8 +1,9 @@
 #' @title Download a Transformers model
 #' @description Download a Transformers model
-#' @param architecture character string of the model architecture family name. Currently supported architecture are 'BERT','GTP','GTP-2','CTRL','Transformer-XL','XLNet','XLM','DistilBERT','RoBERTa' and 'XLM-RoBERTa'. Defaults to 'BERT'
-#' @param model_name character string of the choosen model within the architecture family. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased' for 'BERT' architecture family. Defaults to 'bert-base-multilingual-uncased'.
+#' @param model_name character string of the chosen model within the architecture family. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased' for 'BERT' architecture family. Defaults to 'bert-base-multilingual-uncased'.
+#' @param architecture character string of the model architecture family name. Currently supported architecture are 'BERT', 'GPT', 'GPT-2', 'CTRL', 'Transformer-XL', 'XLNet', 'XLM', 'DistilBERT', 'RoBERTa' and 'XLM-RoBERTa'. Defaults to 'BERT'
 #' @param path path to a directory on disk where the model will be downloaded to inside a subfolder \code{model_name}
+#' @param clean logical indicating to remove the \code{path} if it already exists. Defaults to FALSE.
 #' @export
 #' @return invisibly, the directory where the model is saved to
 #' @examples
@@ -13,17 +14,22 @@
 #'
 #' path <- file.path(getwd(), "inst", "models")
 #' transformer_download_model("bert-base-multilingual-uncased", path = path)
-#' transformer_download_model(architecture ="DistilBERT",
+#' transformer_download_model(architecture = "DistilBERT",
 #'                            model_name = "distilbert-base-multilingual-uncased",
 #'                            path = path)
 #' }
 transformer_download_model <- function(model_name = "bert-base-multilingual-uncased",
-                                       architecture="BERT", path = system.file(package = "golgotha", "models")){
+                                       architecture = "BERT", path = system.file(package = "golgotha", "models"),
+                                       clean = FALSE){
   path <- file.path(path, model_name)
   if(!dir.exists(path)){
     dir.create(path, recursive = TRUE)
+  }else{
+    if(clean){
+      unlink(path, recursive = TRUE)
+    }
   }
-  stopifnot(architecture %in% c("BERT","GTP","GTP-2","CTRL","Transformer-XL","XLNet","XLM","DistilBERT","RoBERTa","XLM-RoBERTa"))
+  validate_architecture(architecture)
   cat(sprintf("Downloading model to %s", path))
   x <- nlp$download(model_name = model_name, architecture = architecture, path = path.expand(path))
   invisible(x)
@@ -32,8 +38,8 @@ transformer_download_model <- function(model_name = "bert-base-multilingual-unca
 
 #' @title Load a Transformer model
 #' @description Load a Transformer model stored on disk
-#' @param architecture character string of the model architecture family name. Currently supported architecture are 'BERT','GTP','GTP-2','CTRL','Transformer-XL','XLNet','XLM','DistilBERT','RoBERTa' and 'XLM-RoBERTa'. Defaults to 'BERT'
-#' @param model_name character string of the choosen model within the architecture family. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased' for 'BERT' architecture family. Defaults to 'bert-base-multilingual-uncased'.
+#' @param model_name character string of the chosen model within the architecture family. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased' for 'BERT' architecture family. Defaults to 'bert-base-multilingual-uncased'.
+#' @param architecture character string of the model architecture family name. Currently supported architecture are 'BERT', 'GPT', 'GPT-2', 'CTRL', 'Transformer-XL', 'XLNet', 'XLM', 'DistilBERT', 'RoBERTa' and 'XLM-RoBERTa'. Defaults to 'BERT'
 #' @param path path to a directory on disk where the model is stored
 #' @export
 #' @return the directory where the model is saved to
@@ -46,34 +52,34 @@ transformer_download_model <- function(model_name = "bert-base-multilingual-unca
 #'                 text = c("provide some words to embed", "another sentence of text"),
 #'                 stringsAsFactors = FALSE)
 #' predict(model, x, type = "tokenise")
-#' embedding_sent <- predict(model, x, type = "embed-sentence")
-#' dim(embedding_sent)
-#' embedding_tok <- predict(model, x, type = "embed-token")
-#' str(embedding_tok)
+#' embedding <- predict(model, x, type = "embed-sentence")
+#' dim(embedding)
+#' embedding <- predict(model, x, type = "embed-token")
+#' str(embedding)
 #' }
 #'
 #' \dontrun{
 #' model_dir <- file.path(getwd(), "inst", "models")
 #' transformer_download_model(architecture = "DistilBERT",
-#'                            model_name = "distilbert-base-multilingual-uncased",
+#'                            model_name = "distilbert-base-multilingual-cased",
 #'                            path = model_dir)
-#' path  <- file.path(getwd(), "inst", "models", "distilbert-base-multilingual-uncased")
+#' path  <- file.path(getwd(), "inst", "models", "distilbert-base-multilingual-cased")
 #' model <- transformer(architecture = "DistilBERT", path = path)
 #' predict(model, x, type = "tokenise")
-#' embedding_sent <- predict(model, x, type = "embed-sentence")
-#' dim(embedding_sent)
-#' embedding_tok <- predict(model, x, type = "embed-token")
-#' str(embedding_tok)
+#' embedding <- predict(model, x, type = "embed-sentence")
+#' dim(embedding)
+#' embedding <- predict(model, x, type = "embed-token")
+#' str(embedding)
 #' }
-transformer <- function(model_name, path = system.file(package = "golgotha", "models"), architecture = "BERT"){
+transformer <- function(model_name, architecture = "BERT", path = system.file(package = "golgotha", "models")){
   if(missing(path)){
     path <- file.path(path, model_name)
     if(!dir.exists(path)){
       path <- transformer_download_model(model_name, architecture = architecture)
     }
   }
-  stopifnot(architecture %in% c("BERT","GTP","GTP-2","CTRL","Transformer-XL","XLNet","XLM","DistilBERT","RoBERTa","XLM-RoBERTa"))
-  path = path.expand(path)
+  validate_architecture(architecture)
+  path <- path.expand(path)
   x <- nlp$Embedder(path = path, architecture = architecture)
   class(x) <- c("Transformer", class(x))
   x
@@ -107,12 +113,11 @@ transformer <- function(model_name, path = system.file(package = "golgotha", "mo
 #'                 text = c("provide some words to embed", "another sentence of text"),
 #'                 stringsAsFactors = FALSE)
 #' predict(model, x, type = "tokenise")
-#' embedding_sent <- predict(model, x, type = "embed-sentence")
-#' dim(embedding_sent)
-#' embedding_tok <- predict(model, x, type = "embed-token")
-#' str(embedding_tok)
+#' embedding <- predict(model, x, type = "embed-sentence")
+#' dim(embedding)
+#' embedding <- predict(model, x, type = "embed-token")
+#' str(embedding)
 #' }
-
 predict.Transformer <- function(object, newdata, type = c("embed-sentence", "embed-token", "tokenise"), trace = 10, ...){
   if(is.character(newdata)){
     if(is.null(names(newdata))){
@@ -131,8 +136,10 @@ predict.Transformer <- function(object, newdata, type = c("embed-sentence", "emb
     results <- list()
     for(row in seq_len(nrow(newdata))){
       doc <- newdata$doc_id[row]
-      if(trace == TRUE || (row %% trace) == 1){
-        cat(sprintf("%s: %s/%s", Sys.time(), row, nrow(newdata)), sep = "\n")
+      if(trace > 0){
+        if(trace == TRUE || (row %% as.numeric(trace)) == 1){
+          cat(sprintf("%s: %s/%s", Sys.time(), row, nrow(newdata)), sep = "\n")
+        }
       }
       if(type == "embed-token"){
         emb <- object$embed_tokens(text = newdata$text[row], ...)
@@ -150,8 +157,8 @@ predict.Transformer <- function(object, newdata, type = c("embed-sentence", "emb
   results
 }
 
-#' @title Download a BERT-like Transformers model (Deprecated)
-#' @description Download a BERT-like Transformers model (Deprecated)
+#' @title Download a BERT-like Transformers model
+#' @description Download a BERT-like Transformers model
 #' @param model_name character string with the name of the model. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased'. Defaults to 'bert-base-multilingual-uncased'.
 #' @param path path to a directory on disk where the model will be downloaded to inside a subfolder \code{model_name}
 #' @export
@@ -167,7 +174,7 @@ predict.Transformer <- function(object, newdata, type = c("embed-sentence", "emb
 #' }
 bert_download_model <- function(model_name = "bert-base-multilingual-uncased",
                                 path = system.file(package = "golgotha", "models")){
-  transformer_download_model(architecture="BERT", model_name = model_name, path = path)
+  transformer_download_model(architecture = "BERT", model_name = model_name, path = path)
 }
 
 
@@ -204,8 +211,8 @@ BERT <- function(model_name, path = system.file(package = "golgotha", "models"))
   x
 }
 
-#' @title Predict alongside a BERT-like Transformer model (Deprecated)
-#' @description Extract features from the BERT model namely get (Deprecated)
+#' @title Predict alongside a BERT-like Transformer model
+#' @description Extract features from the BERT model namely get
 #' \itemize{
 #' \item the embedding of a sentence
 #' \item the embedding of the tokens of the sentence

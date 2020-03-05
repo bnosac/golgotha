@@ -4,18 +4,19 @@
 \alias{transformer_download_model}
 \title{Download a Transformers model}
 \usage{
-transformer_download_model(
-  model_name = "bert-base-multilingual-uncased",
-  architecture = "BERT",
-  path = system.file(package = "golgotha", "models")
-)
+
+  transformer_download_model(model_name = "bert-base-multilingual-uncased",
+  architecture = "BERT", path = system.file(package = "golgotha",
+  "models"), clean = FALSE)
 }
 \arguments{
-\item{model_name}{character string of the choosen model within the architecture family. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased' for 'BERT' architecture family. Defaults to 'bert-base-multilingual-uncased'.}
+\item{model_name}{character string of the chosen model within the architecture family. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased' for 'BERT' architecture family. Defaults to 'bert-base-multilingual-uncased'.}
 
-\item{architecture}{character string of the model architecture family name. Currently supported architecture are 'BERT','GTP','GTP-2','CTRL','Transformer-XL','XLNet','XLM','DistilBERT','RoBERTa' and 'XLM-RoBERTa'. Defaults to 'BERT'}
+\item{architecture}{character string of the model architecture family name. Currently supported architecture are 'BERT', 'GPT', 'GPT-2', 'CTRL', 'Transformer-XL', 'XLNet', 'XLM', 'DistilBERT', 'RoBERTa' and 'XLM-RoBERTa'. Defaults to 'BERT'}
 
 \item{path}{path to a directory on disk where the model will be downloaded to inside a subfolder \code{model_name}}
+
+\item{clean}{logical indicating to remove the \code{path} if it already exists. Defaults to FALSE.}
 }
 \value{
 invisibly, the directory where the model is saved to
@@ -31,7 +32,7 @@ transformer_download_model(architecture = "DistilBERT",
 
 path <- file.path(getwd(), "inst", "models")
 transformer_download_model("bert-base-multilingual-uncased", path = path)
-transformer_download_model(architecture ="DistilBERT",
+transformer_download_model(architecture = "DistilBERT",
                            model_name = "distilbert-base-multilingual-uncased",
                            path = path)
 }

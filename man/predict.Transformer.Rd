@@ -4,13 +4,8 @@
 \alias{predict.Transformer}
 \title{Predict alongside a Transformer model}
 \usage{
-\method{predict}{Transformer}(
-  object,
-  newdata,
-  type = c("embed-sentence", "embed-token", "tokenise"),
-  trace = 10,
-  ...
-)
+\method{predict}{Transformer}(object, newdata, type = c("embed-sentence",
+  "embed-token", "tokenise"), trace = 10, ...)
 }
 \arguments{
 \item{object}{an object of class Transformer as returned by \code{\link{transformer}}}
@@ -48,9 +43,9 @@ x <- data.frame(doc_id = c("doc_1", "doc_2"),
                 text = c("provide some words to embed", "another sentence of text"),
                 stringsAsFactors = FALSE)
 predict(model, x, type = "tokenise")
-embedding_sent <- predict(model, x, type = "embed-sentence")
-dim(embedding_sent)
-embedding_tok <- predict(model, x, type = "embed-token")
-str(embedding_tok)
+embedding <- predict(model, x, type = "embed-sentence")
+dim(embedding)
+embedding <- predict(model, x, type = "embed-token")
+str(embedding)
 }
 }
