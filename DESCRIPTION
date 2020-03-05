@@ -1,7 +1,7 @@
 Package: golgotha
 Type: Package
 Title: Contextualised Embeddings and Language Modelling using BERT and Friends
-Version: 0.1.0
+Version: 0.2.0
 Maintainer: Jan Wijffels <jwijffels@bnosac.be>
 Authors@R: c(
     person('Jan', 'Wijffels', role = c('aut', 'cre', 'cph'), email = 'jwijffels@bnosac.be'), 
