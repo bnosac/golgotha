@@ -97,7 +97,7 @@ embedding <- predict(model, "Just give me these embeddings please.")
 \subsection{Fun}
 I basically said 'embeddings, nothing more, nothing less'. Unfortunately I couldn't resist in also wrapping an example of the \emph{generate} functionality to see what a GPT model would provide as extra text following your sequence of words.
 
-<<results='hide'>>=
+<<results=hide>>=
 model  <- transformer("distilgpt2", architecture = "GPT-2-LMHead")
 @
 
