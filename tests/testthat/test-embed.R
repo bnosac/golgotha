@@ -24,12 +24,12 @@ test_that("second occurence of the same transformer_download_model() uses cached
 })
 
 MODELS = data.frame(
-  architecture=c('GTP','GTP-2','Transformer-XL','XLNet','XLM','DistilBERT',
-                 'RoBERTa','XLM-RoBERTa','CamenBERT','T5','FlauBERT'),
-  weights = c("openai-gpt","gpt2","transfo-xl-wt103","xlnet-base-cased","xlm-mlm-enfr-1024","distilbert-base-uncased",
-              "roberta-base","xlm-roberta-base","camembert-base","t5-small","flaubert-small-cased"),
-  nb_tokens = c(19L,21L,11L,20L,19L,18L,
-                20L,24L,23L,18L,22L),
+  architecture=c('BERT','GTP','GTP-2','XLNet','XLM','DistilBERT',
+                 'RoBERTa','XLM-RoBERTa','CamenBERT','FlauBERT'),
+  weights = c("bert-base-uncased","openai-gpt","gpt2","xlnet-base-cased","xlm-mlm-enfr-1024","distilbert-base-uncased",
+              "roberta-base","xlm-roberta-base","camembert-base","flaubert-small-cased"),
+  nb_tokens = c(16L, 19L, 21L, 20L, 19L, 18L,            20L, 24L, 23L, 22L),
+  embed_size = c(768L, 768L, 768L, 768L,  1024L, 768L,   768L, 768L, 768L, 512L),
   stringsAsFactors = F)
 BIG_MODELS = data.frame(
   architecture=c('CTRL'),
@@ -61,9 +61,9 @@ test_that("transformer() with default load a BERT archiecture" , {
 for (i in 1:nrow(MODELS)) {
   test_log <- paste0(MODELS[i,"architecture"], " model-architecture can be loaded, and is able to tokenize sentences!")
   x=data.frame(doc_id = MODELS[i,"weights"],  text = test_log, stringsAsFactors = F)
+  model_path <- file.path("~/.cache/golgotha",MODELS[i,"weights"])
+  model <- transformer(architecture = MODELS[i,"architecture"], path=model_path)
   test_that(test_log,{
-    model_path <- file.path("~/.cache/golgotha",MODELS[i,"weights"])
-    model <- transformer(architecture = MODELS[i,"architecture"], path=model_path)
     expect_s3_class(model,c("Transformer","__main__.Embedder","python.builtin.object"))
     tokens    <- predict(model, x, type = "tokenise")
     expect_type(tokens,"list")
@@ -71,6 +71,16 @@ for (i in 1:nrow(MODELS)) {
     expect_equal(length(tokens[[1]]), MODELS[i,"nb_tokens"])
     print(tokens)
   })
+  test_that(paste0(MODELS[i,"architecture"], " produces token embeddngs with expected type and dimensions"),{
+    embed_tok    <- predict(model, x, type = "embed-token")
+    expect_type(embed_tok,"list")
+    expect_type(embed_tok[[1]],"double")
+    expect_gte( dim(embed_tok[[1]])[1], MODELS[i,"nb_tokens"])
+    expect_lte( dim(embed_tok[[1]])[1], MODELS[i,"nb_tokens"]+2)
+    expect_equal( dim(embed_tok[[1]])[2], MODELS[i,"embed_size"])
+  })
+  rm(model)
+  #py_call("del(Embedder)")
 }
 
 

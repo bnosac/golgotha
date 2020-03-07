@@ -11,14 +11,14 @@ transformer(
 )
 }
 \arguments{
-\item{model_name}{character string of the choosen model within the architecture family. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased' for 'BERT' architecture family. Defaults to 'bert-base-multilingual-uncased'.}
+\item{model_name}{character string of the chosen model within the architecture family. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased' for 'BERT' architecture family. Defaults to 'bert-base-multilingual-uncased'.}
 
 \item{path}{path to a directory on disk where the model is stored}
 
-\item{architecture}{character string of the model architecture family name. Currently supported architecture are 'BERT','GTP','GTP-2','CTRL','Transformer-XL','XLNet','XLM','DistilBERT','RoBERTa' and 'XLM-RoBERTa'. Defaults to 'BERT'}
+\item{architecture}{character string of the model architecture family name. Currently supported architecture are 'BERT','GTP','GTP-2','CTRL','XLNet','XLM','DistilBERT','RoBERTa', 'XLM-RoBERTa', 'CamenBERT' and 'FlauBERT'. Defaults to 'BERT'}
 }
 \value{
-the directory where the model is saved to
+the directory where the model is saved to.
 }
 \description{
 Load a Transformer model stored on disk

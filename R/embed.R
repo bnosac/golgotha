@@ -23,7 +23,7 @@ transformer_download_model <- function(model_name = "bert-base-multilingual-unca
   if(!dir.exists(path)){
     dir.create(path, recursive = TRUE)
   }
-  stopifnot(architecture %in% c("BERT","GTP","GTP-2","CTRL","Transformer-XL","XLNet","XLM","DistilBERT","RoBERTa","XLM-RoBERTa","CamenBERT","T5","FlauBERT"))
+  stopifnot(architecture %in% c("BERT","GTP","GTP-2","CTRL","XLNet","XLM","DistilBERT","RoBERTa","XLM-RoBERTa","CamenBERT","FlauBERT"))
   cat(sprintf("Downloading model to %s", path))
   x <- nlp$download(model_name = model_name, architecture = architecture, path = path.expand(path))
   invisible(x)
@@ -32,11 +32,11 @@ transformer_download_model <- function(model_name = "bert-base-multilingual-unca
 
 #' @title Load a Transformer model
 #' @description Load a Transformer model stored on disk
-#' @param architecture character string of the model architecture family name. Currently supported architecture are 'BERT','GTP','GTP-2','CTRL','Transformer-XL','XLNet','XLM','DistilBERT','RoBERTa' and 'XLM-RoBERTa'. Defaults to 'BERT'
-#' @param model_name character string of the choosen model within the architecture family. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased' for 'BERT' architecture family. Defaults to 'bert-base-multilingual-uncased'.
+#' @param architecture character string of the model architecture family name. Currently supported architecture are 'BERT','GTP','GTP-2','CTRL','XLNet','XLM','DistilBERT','RoBERTa', 'XLM-RoBERTa', 'CamenBERT' and 'FlauBERT'. Defaults to 'BERT'
+#' @param model_name character string of the chosen model within the architecture family. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased' for 'BERT' architecture family. Defaults to 'bert-base-multilingual-uncased'.
 #' @param path path to a directory on disk where the model is stored
 #' @export
-#' @return the directory where the model is saved to
+#' @return the directory where the model is saved to.
 #' @examples
 #' \dontrun{
 #' transformer_download_model("bert-base-multilingual-uncased")
@@ -72,7 +72,7 @@ transformer <- function(model_name, path = system.file(package = "golgotha", "mo
       path <- transformer_download_model(model_name, architecture = architecture)
     }
   }
-  stopifnot(architecture %in% c("BERT","GTP","GTP-2","CTRL","Transformer-XL","XLNet","XLM","DistilBERT","RoBERTa","XLM-RoBERTa","CamenBERT","T5","FlauBERT"))
+  stopifnot(architecture %in% c("BERT","GTP","GTP-2","CTRL","XLNet","XLM","DistilBERT","RoBERTa","XLM-RoBERTa","CamenBERT","FlauBERT"))
   path = path.expand(path)
   x <- nlp$Embedder(path = path, architecture = architecture)
   class(x) <- c("Transformer", class(x))

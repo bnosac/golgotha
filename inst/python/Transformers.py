@@ -7,16 +7,13 @@ MODELS = {    'BERT':          (BertModel,       BertTokenizer,       'bert-base
               'GTP':           (OpenAIGPTModel,  OpenAIGPTTokenizer,  'openai-gpt'),
               'GTP-2':         (GPT2Model,       GPT2Tokenizer,       'gpt2'),
               'CTRL':          (CTRLModel,       CTRLTokenizer,       'ctrl'),
-              'Transformer-XL':(TransfoXLModel,  TransfoXLTokenizer,  'transfo-xl-wt103'),
               'XLNet':         (XLNetModel,      XLNetTokenizer,      'xlnet-base-cased'),
               'XLM':           (XLMModel,        XLMTokenizer,        'xlm-mlm-enfr-1024'),
               'DistilBERT':    (DistilBertModel, DistilBertTokenizer, 'distilbert-base-cased'),
               'RoBERTa':       (RobertaModel,    RobertaTokenizer,    'roberta-base'),
               'XLM-RoBERTa':   (XLMRobertaModel, XLMRobertaTokenizer, 'xlm-roberta-base'),
-              
-              'CamenBERT':     (CamembertModel, CamembertTokenizer,  'camembert-base'),
-              'T5':            (T5Model,        T5Tokenizer,         't5-small'),
-              'FlauBERT':      (FlaubertModel,  FlaubertTokenizer,   'flaubert-small-cased'),
+              'CamenBERT':     (CamembertModel,  CamembertTokenizer,  'camembert-base'),
+              'FlauBERT':      (FlaubertModel,   FlaubertTokenizer,   'flaubert-small-cased'),
          }
 
 class Embedder():
