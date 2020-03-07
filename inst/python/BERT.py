@@ -12,7 +12,11 @@ MODELS = {    'BERT':          (BertModel,       BertTokenizer,       'bert-base
               'XLM':           (XLMModel,        XLMTokenizer,        'xlm-mlm-enfr-1024'),
               'DistilBERT':    (DistilBertModel, DistilBertTokenizer, 'distilbert-base-cased'),
               'RoBERTa':       (RobertaModel,    RobertaTokenizer,    'roberta-base'),
-              'XLM-RoBERTa':   (XLMRobertaModel, XLMRobertaTokenizer, 'xlm-roberta-base')
+              'XLM-RoBERTa':   (XLMRobertaModel, XLMRobertaTokenizer, 'xlm-roberta-base'),
+              
+              'CamenBERT':     (CamembertModel, CamembertTokenizer,  'camembert-base'),
+              'T5':            (T5Model,        T5Tokenizer,         't5-small'),
+              'FlauBERT':      (FlaubertModel,  FlaubertTokenizer,   'flaubert-small-cased'),
          }
 
 class Embedder():

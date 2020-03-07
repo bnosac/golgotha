@@ -17,7 +17,7 @@
 
 \item{newdata}{a data.frame with columns doc_id and text indicating the text to embed}
 
-\item{type}{a character string, either 'embed-sentence', 'embed-token', 'tokenise' to get respectively sentence-level embeddings, token-level embeddings or the wordpiece tokens}
+\item{type}{a character string, either 'embed-sentence', 'embed-token', 'tokenise' to get respectively sentence-level embeddings, token-level embeddings or the subword tokens}
 
 \item{trace}{logical indicating to show a trace of the progress. Defaults to showing every 10 annotated embeddings}
 
@@ -28,7 +28,7 @@ depending on the argument \code{type} the function returns:
 \itemize{
 \item embed-sentence: A matrix with the embedding of the text, where the doc_id's are in the rownames
 \item embed-token: A list of matrices with token-level embeddings, one for each doc_id. The names of the list are identified by the doc_id. Note that depending on the model you will have CLS / SEP tokens at the start/back and the number of rows of the matrix is also limited by the model
-\item tokenise: A list of subword (wordpiece) tokens. The names of the list are identified by the doc_id.
+\item tokenise: A list of subword tokens, depending on the Transformer architecture related tokenizer (could be wordpiece, BPE, ...). The names of the list are identified by the doc_id.
 }
 }
 \description{

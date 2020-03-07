@@ -23,7 +23,7 @@ transformer_download_model <- function(model_name = "bert-base-multilingual-unca
   if(!dir.exists(path)){
     dir.create(path, recursive = TRUE)
   }
-  stopifnot(architecture %in% c("BERT","GTP","GTP-2","CTRL","Transformer-XL","XLNet","XLM","DistilBERT","RoBERTa","XLM-RoBERTa"))
+  stopifnot(architecture %in% c("BERT","GTP","GTP-2","CTRL","Transformer-XL","XLNet","XLM","DistilBERT","RoBERTa","XLM-RoBERTa","CamenBERT","T5","FlauBERT"))
   cat(sprintf("Downloading model to %s", path))
   x <- nlp$download(model_name = model_name, architecture = architecture, path = path.expand(path))
   invisible(x)
@@ -72,7 +72,7 @@ transformer <- function(model_name, path = system.file(package = "golgotha", "mo
       path <- transformer_download_model(model_name, architecture = architecture)
     }
   }
-  stopifnot(architecture %in% c("BERT","GTP","GTP-2","CTRL","Transformer-XL","XLNet","XLM","DistilBERT","RoBERTa","XLM-RoBERTa"))
+  stopifnot(architecture %in% c("BERT","GTP","GTP-2","CTRL","Transformer-XL","XLNet","XLM","DistilBERT","RoBERTa","XLM-RoBERTa","CamenBERT","T5","FlauBERT"))
   path = path.expand(path)
   x <- nlp$Embedder(path = path, architecture = architecture)
   class(x) <- c("Transformer", class(x))
@@ -88,7 +88,7 @@ transformer <- function(model_name, path = system.file(package = "golgotha", "mo
 #' }
 #' @param object an object of class Transformer as returned by \code{\link{transformer}}
 #' @param newdata a data.frame with columns doc_id and text indicating the text to embed
-#' @param type a character string, either 'embed-sentence', 'embed-token', 'tokenise' to get respectively sentence-level embeddings, token-level embeddings or the wordpiece tokens
+#' @param type a character string, either 'embed-sentence', 'embed-token', 'tokenise' to get respectively sentence-level embeddings, token-level embeddings or the subword tokens
 #' @param trace logical indicating to show a trace of the progress. Defaults to showing every 10 annotated embeddings
 #' @param ... other arguments passed on to the methods
 #' @export
@@ -96,7 +96,7 @@ transformer <- function(model_name, path = system.file(package = "golgotha", "mo
 #' \itemize{
 #' \item embed-sentence: A matrix with the embedding of the text, where the doc_id's are in the rownames
 #' \item embed-token: A list of matrices with token-level embeddings, one for each doc_id. The names of the list are identified by the doc_id. Note that depending on the model you will have CLS / SEP tokens at the start/back and the number of rows of the matrix is also limited by the model
-#' \item tokenise: A list of subword (wordpiece) tokens. The names of the list are identified by the doc_id.
+#' \item tokenise: A list of subword tokens, depending on the Transformer architecture related tokenizer (could be wordpiece, BPE, ...). The names of the list are identified by the doc_id.
 #' }
 #' @examples
 #' \dontrun{
