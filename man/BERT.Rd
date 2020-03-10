@@ -2,7 +2,7 @@
 % Please edit documentation in R/embed.R
 \name{BERT}
 \alias{BERT}
-\title{Load a BERT-like Transformer model (Deprecated)}
+\title{Load a BERT-like Transformer model}
 \usage{
 BERT(model_name, path = system.file(package = "golgotha", "models"))
 }
@@ -15,7 +15,7 @@ BERT(model_name, path = system.file(package = "golgotha", "models"))
 the directory where the model is saved to
 }
 \description{
-Load a BERT-like Transformer model stored on disk (Deprecated)
+Load a BERT-like Transformer model stored on disk
 }
 \examples{
 \dontrun{

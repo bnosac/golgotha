@@ -4,3 +4,4 @@
 .Ruserdata
 inst/models/bert-base-dutch-cased
 inst/models/bert-base-multilingual-uncased
+dev
