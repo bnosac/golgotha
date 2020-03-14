@@ -31,6 +31,9 @@ transformer_download_model <- function(model_name = "bert-base-multilingual-unca
   }
   validate_architecture(architecture)
   cat(sprintf("Downloading model to %s", path), sep = "\n")
+  oldwd <- getwd()
+  on.exit(setwd(oldwd))
+  setwd(system.file(package = "golgotha", "python"))
   x <- nlp$download(model_name = model_name, architecture = architecture, path = path.expand(path))
   invisible(x)
 }
@@ -80,6 +83,10 @@ transformer <- function(model_name, architecture = "BERT", path = system.file(pa
   }
   validate_architecture(architecture)
   path <- path.expand(path)
+
+  oldwd <- getwd()
+  on.exit(setwd(oldwd))
+  setwd(system.file(package = "golgotha", "python"))
   x <- nlp$Embedder(path = path, architecture = architecture)
   attr(x, "path") <- path
   attr(x, "model_name") <- model_name
