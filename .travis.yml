@@ -38,9 +38,12 @@ r_packages:
 env:
   global:
     - TT_AT_HOME=TRUE
-    - R_CHECK_ARGS="--no-build-vignettes"
 
 warnings_are_errors: true
+
+script:
+  - R CMD build --no-build-vignettes .
+  - R CMD check --no-manual --no-vignettes *tar.gz
 
 after_success:
   - Rscript -e 'library(covr);coveralls()'
