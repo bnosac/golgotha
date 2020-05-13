@@ -1,7 +1,7 @@
 dist: trusty
 sudo: required
 language: r
-latex: false
+latex: true
 cache: packages
 
 addons:
@@ -26,7 +26,7 @@ r_packages:
 
 env:
   global:
-    - TT_AT_HOME=TRUE
+    - TT_AT_HOME=FALSE
 
 warnings_are_errors: true
 
@@ -36,6 +36,7 @@ before_script:
 
 script:
   - R CMD build --no-build-vignettes .
+  - R CMD check --no-manual --no-vignettes --no-tests --run-donttest *tar.gz
   - R CMD check --no-manual --no-vignettes *tar.gz
 
 after_success:
