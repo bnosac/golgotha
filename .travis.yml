@@ -32,7 +32,7 @@ warnings_are_errors: true
 
 before_script:
   - R -e "reticulate::install_miniconda()"
-  - R -e "reticulate::conda_install(envname = 'r-reticulate', c('torch', 'transformers==2.4.1'), pip = TRUE)"
+  - R -e "reticulate::conda_install(envname = 'r-reticulate', c('torch', 'transformers==2.4.1'), pip = TRUE, pip_options = '--quiet')"
 
 script:
   - R CMD build --no-build-vignettes .
