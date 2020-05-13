@@ -3,8 +3,8 @@
 local <- new.env()
 
 .onAttach <- function(libname, pkgname){
-  if(grepl(x = R.Version()$arch, pattern = "32")){
-    stop("This package only works on 64bit architectures due to a dependency on torch")
+  if(!grepl(x = R.Version()$arch, pattern = "64")){
+    warning("This package only works on 64bit architectures due to a dependency on torch. You are not running a 64bit version of R.")
   }
 }
 
