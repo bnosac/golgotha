@@ -12,6 +12,7 @@ addons:
       - python-virtualenv
 
 install:
+  - pip install --upgrade pip
   - pip install transformers
   - pip install torch
 
