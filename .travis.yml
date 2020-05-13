@@ -30,10 +30,11 @@ env:
 
 warnings_are_errors: true
 
-script:
+before_script:
   - R -e "reticulate::install_miniconda()"
-  - R -e "reticulate::conda_install(envname = 'r-reticulate', 'transformers==2.4.1', pip = TRUE)"
-  - R -e "reticulate::conda_install(envname = 'r-reticulate', 'torch', pip = TRUE)"
+  - R -e "reticulate::conda_install(envname = 'r-reticulate', c('torch', 'transformers==2.4.1'), pip = TRUE)"
+
+script:
   - R CMD build --no-build-vignettes .
   - R CMD check --no-manual --no-vignettes *tar.gz
 
