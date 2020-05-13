@@ -88,5 +88,8 @@ model <- transformer("distilbert-base-uncased-distilled-squad", architecture = "
 model <- transformer("distilbert-base-german-cased", architecture = "DistilBERT")
 model <- transformer("distilbert-base-multilingual-cased", architecture = "DistilBERT")
 model <- transformer("distilroberta-base", architecture = "DistilBERT")
-
 ```
+
+### Continuous Integration
+
+[![Build Status](https://travis-ci.org/bnosac/golgotha.svg?branch=master)](https://travis-ci.org/bnosac/golgotha)
