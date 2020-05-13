@@ -10,7 +10,6 @@ addons:
     packages:
       - python3
       - python-virtualenv
-      - python3-venv
 
 r:
  - devel
