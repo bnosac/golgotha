@@ -30,12 +30,12 @@ Download a Transformers model
 \donttest{
 transformer_download_model("bert-base-multilingual-uncased")
 transformer_download_model(architecture = "DistilBERT",
-                           model_name = "distilbert-base-multilingual-uncased")
+                           model_name = "distilbert-base-uncased")
 
 path <- file.path(getwd(), "inst", "models")
 transformer_download_model("bert-base-multilingual-uncased", path = path)
 transformer_download_model(architecture = "DistilBERT",
-                           model_name = "distilbert-base-multilingual-uncased",
+                           model_name = "distilbert-base-uncased",
                            path = path)
 }
 unlink(file.path(system.file(package = "golgotha", "models"),
