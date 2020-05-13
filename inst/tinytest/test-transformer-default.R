@@ -28,3 +28,6 @@ expect_true(all(sapply(embedding, is.matrix)))
 tokens    <- predict(model, x, type = "tokenise")
 expect_true(is.list(tokens))
 expect_true(all(sapply(tokens, is.character)))
+
+## Clean up models folder
+unlink_golgotha()
