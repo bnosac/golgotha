@@ -1,0 +1,36 @@
+dist: trusty
+sudo: required
+language: r
+latex: true
+cache: packages
+
+addons:
+  apt:
+    update: true
+    packages:
+      - python3
+      - python-virtualenv
+      - python3-venv
+
+r:
+ - devel
+ - release
+ - oldrel
+
+repos:
+  CRAN: https://cloud.r-project.org
+
+r_packages:
+  - reticulate
+  - tinytest
+  - covr
+
+env:
+  global:
+    - TT_AT_HOME=TRUE
+
+warnings_are_errors: true
+
+after_success:
+  - Rscript -e 'library(covr);coveralls()'
+
