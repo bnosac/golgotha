@@ -11,6 +11,7 @@ if(requireNamespace("tinytest", quietly = TRUE)){
     unlink_model_directory()
   }
   if(identical(Sys.getenv("TT_AT_CI"), "TRUE")){
+    warning("Checking Travis")
     library(golgotha)
     testdir <- system.file("tinytest", package = "golgotha")
     tinytest::run_test_file(file = file.path(testdir, "test-download.R"))
