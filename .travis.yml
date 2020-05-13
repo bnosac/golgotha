@@ -11,6 +11,10 @@ addons:
       - python3
       - python-virtualenv
 
+install:
+  - pip install transformers
+  - pip install torch
+
 r:
  - devel
  - release
