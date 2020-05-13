@@ -4,10 +4,12 @@
 \alias{transformer_download_model}
 \title{Download a Transformers model}
 \usage{
-
-  transformer_download_model(model_name = "bert-base-multilingual-uncased",
-  architecture = "BERT", path = system.file(package = "golgotha",
-  "models"), clean = FALSE)
+transformer_download_model(
+  model_name = "bert-base-multilingual-uncased",
+  architecture = "BERT",
+  path = system.file(package = "golgotha", "models"),
+  clean = FALSE
+)
 }
 \arguments{
 \item{model_name}{character string of the chosen model within the architecture family. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased' for 'BERT' architecture family. Defaults to 'bert-base-multilingual-uncased'.}
@@ -25,7 +27,7 @@ invisibly, the directory where the model is saved to
 Download a Transformers model
 }
 \examples{
-\dontrun{
+\donttest{
 transformer_download_model("bert-base-multilingual-uncased")
 transformer_download_model(architecture = "DistilBERT",
                            model_name = "distilbert-base-multilingual-uncased")

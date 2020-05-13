@@ -10,6 +10,7 @@ Description: Wraps the transformers Python module in order to easily obtain cont
     This work was basically done in order to ease the work of building predictive models using BERT-like embeddings.
 License: MPL-2.0
 Encoding: UTF-8
+Archs: x64
 Suggests: 
     tinytest
 Depends:
@@ -21,4 +22,4 @@ Config/reticulate:
       list(package = "transformers", version = "2.4.1", pip = TRUE)
     )
   )    
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0

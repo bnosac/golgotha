@@ -4,8 +4,11 @@
 \alias{transformer}
 \title{Load a Transformer model}
 \usage{
-transformer(model_name, architecture = "BERT",
-  path = system.file(package = "golgotha", "models"))
+transformer(
+  model_name,
+  architecture = "BERT",
+  path = system.file(package = "golgotha", "models")
+)
 }
 \arguments{
 \item{model_name}{character string of the chosen model within the architecture family. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased' for 'BERT' architecture family. Defaults to 'bert-base-multilingual-uncased'.}
@@ -21,7 +24,7 @@ an object of class Transformer
 Load a Transformer model stored on disk
 }
 \examples{
-\dontrun{
+\donttest{
 transformer_download_model("bert-base-multilingual-uncased")
 model <- transformer("bert-base-multilingual-uncased")
 
@@ -35,7 +38,7 @@ embedding <- predict(model, x, type = "embed-token")
 str(embedding)
 }
 
-\dontrun{
+\donttest{
 model_dir <- file.path(getwd(), "inst", "models")
 transformer_download_model(architecture = "DistilBERT",
                            model_name = "distilbert-base-multilingual-cased",

@@ -4,8 +4,13 @@
 \alias{predict.Transformer}
 \title{Predict alongside a Transformer model}
 \usage{
-\method{predict}{Transformer}(object, newdata, type = c("embed-sentence",
-  "embed-token", "tokenise"), trace = 10, ...)
+\method{predict}{Transformer}(
+  object,
+  newdata,
+  type = c("embed-sentence", "embed-token", "tokenise"),
+  trace = 10,
+  ...
+)
 }
 \arguments{
 \item{object}{an object of class Transformer as returned by \code{\link{transformer}}}
@@ -36,7 +41,7 @@ Extract features from the Transformer model namely get
 }
 }
 \examples{
-\dontrun{
+\donttest{
 transformer_download_model("bert-base-multilingual-uncased")
 model <- transformer("bert-base-multilingual-uncased")
 

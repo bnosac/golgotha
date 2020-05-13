@@ -7,7 +7,7 @@
 #' @export
 #' @return invisibly, the directory where the model is saved to
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' transformer_download_model("bert-base-multilingual-uncased")
 #' transformer_download_model(architecture = "DistilBERT",
 #'                            model_name = "distilbert-base-multilingual-uncased")
@@ -47,7 +47,7 @@ transformer_download_model <- function(model_name = "bert-base-multilingual-unca
 #' @export
 #' @return an object of class Transformer
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' transformer_download_model("bert-base-multilingual-uncased")
 #' model <- transformer("bert-base-multilingual-uncased")
 #'
@@ -61,7 +61,7 @@ transformer_download_model <- function(model_name = "bert-base-multilingual-unca
 #' str(embedding)
 #' }
 #'
-#' \dontrun{
+#' \donttest{
 #' model_dir <- file.path(getwd(), "inst", "models")
 #' transformer_download_model(architecture = "DistilBERT",
 #'                            model_name = "distilbert-base-multilingual-cased",
@@ -123,7 +123,7 @@ print.Transformer <- function(x, ...){
 #' \item generate: generate tokens following the provided text sequence
 #' }
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' transformer_download_model("bert-base-multilingual-uncased")
 #' model <- transformer("bert-base-multilingual-uncased")
 #'
@@ -185,7 +185,7 @@ predict.Transformer <- function(object, newdata, type = c("embed-sentence", "emb
 #' @export
 #' @return invisibly, the directory where the model is saved to
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' bert_download_model("bert-base-multilingual-uncased")
 #' bert_download_model("bert-base-dutch-cased")
 #'
@@ -206,7 +206,7 @@ bert_download_model <- function(model_name = "bert-base-multilingual-uncased",
 #' @export
 #' @return the directory where the model is saved to
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' bert_download_model("bert-base-multilingual-uncased")
 #' model <- BERT("bert-base-multilingual-uncased")
 #'
@@ -220,7 +220,7 @@ bert_download_model <- function(model_name = "bert-base-multilingual-uncased",
 #' str(embedding)
 #' }
 #'
-#' \dontrun{
+#' \donttest{
 #' model_dir <- file.path(getwd(), "inst", "models")
 #' bert_download_model("bert-base-multilingual-uncased", path = model_dir)
 #' path  <- file.path(getwd(), "inst", "models", "bert-base-multilingual-uncased")

@@ -2,10 +2,16 @@
 
 local <- new.env()
 
+.onAttach <- function(libname, pkgname){
+  if(grepl(x = R.Version()$arch, pattern = "32")){
+    stop("This package only works on 64bit architectures due to a dependency on torch")
+  }
+}
+
 .onLoad <- function(libname, pkgname) {
-  packageStartupMessage("- Connecting/Setting up Python using reticulate")
+  #packageStartupMessage("- Connecting/Setting up Python using reticulate")
   reticulate::configure_environment(pkgname)
-  packageStartupMessage("- Loading golgotha BERT code")
+  #packageStartupMessage("- Loading golgotha BERT code")
 
   oldwd <- getwd()
   on.exit(setwd(oldwd))

@@ -1,3 +1,5 @@
 if(requireNamespace("tinytest", quietly = TRUE)){
-  tinytest::test_package("golgotha")
+  if(tinytest::at_home()){
+    tinytest::test_package("golgotha")
+  }
 }

@@ -4,8 +4,10 @@
 \alias{bert_download_model}
 \title{Download a BERT-like Transformers model}
 \usage{
-bert_download_model(model_name = "bert-base-multilingual-uncased",
-  path = system.file(package = "golgotha", "models"))
+bert_download_model(
+  model_name = "bert-base-multilingual-uncased",
+  path = system.file(package = "golgotha", "models")
+)
 }
 \arguments{
 \item{model_name}{character string with the name of the model. E.g. 'bert-base-uncased', 'bert-base-multilingual-uncased', 'bert-base-multilingual-cased', 'bert-base-dutch-cased'. Defaults to 'bert-base-multilingual-uncased'.}
@@ -19,7 +21,7 @@ invisibly, the directory where the model is saved to
 Download a BERT-like Transformers model
 }
 \examples{
-\dontrun{
+\donttest{
 bert_download_model("bert-base-multilingual-uncased")
 bert_download_model("bert-base-dutch-cased")
 

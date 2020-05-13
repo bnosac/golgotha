@@ -18,7 +18,7 @@ the directory where the model is saved to
 Load a BERT-like Transformer model stored on disk
 }
 \examples{
-\dontrun{
+\donttest{
 bert_download_model("bert-base-multilingual-uncased")
 model <- BERT("bert-base-multilingual-uncased")
 
@@ -32,7 +32,7 @@ embedding <- predict(model, x, type = "embed-token")
 str(embedding)
 }
 
-\dontrun{
+\donttest{
 model_dir <- file.path(getwd(), "inst", "models")
 bert_download_model("bert-base-multilingual-uncased", path = model_dir)
 path  <- file.path(getwd(), "inst", "models", "bert-base-multilingual-uncased")
