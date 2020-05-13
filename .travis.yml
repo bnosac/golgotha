@@ -35,7 +35,9 @@ before_script:
   - R -e "reticulate::conda_install(envname = 'r-reticulate', c('torch', 'transformers==2.4.1'), pip = TRUE, pip_options = '--quiet')"
 
 script:
-  - R CMD build --no-build-vignettes .
+  - R CMD INSTALL ../golgotha
+  - cd vignettes/rnw; make; cd ..;cd ..;
+  - R CMD build .
   - R CMD check --no-manual --no-vignettes --no-tests --run-donttest *tar.gz
   - R CMD check --no-manual --no-vignettes *tar.gz
 
