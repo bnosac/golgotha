@@ -11,20 +11,6 @@ addons:
       - python3
       - python-virtualenv
 
-before_script:
-  - sudo apt-get update
-  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-  - bash miniconda.sh -b -p $HOME/miniconda
-  - rm miniconda.sh
-  - export PATH="$HOME/miniconda/bin:$PATH"
-  - hash -r
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda
-  - conda info -a
-  - conda install -c conda-forge transformers
-  - conda install -c anaconda mkl
-  - conda install -c pytorch
-
 r:
  - devel
  - release
@@ -45,6 +31,9 @@ env:
 warnings_are_errors: true
 
 script:
+  - R -e "reticulate::install_miniconda()"
+  - R -e "reticulate::conda_install(envname = 'r-reticulate', 'transformers==2.4.1', pip = TRUE)"
+  - R -e "reticulate::conda_install(envname = 'r-reticulate', 'torch', pip = TRUE)"
   - R CMD build --no-build-vignettes .
   - R CMD check --no-manual --no-vignettes *tar.gz
 
