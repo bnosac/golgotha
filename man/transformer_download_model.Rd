@@ -38,4 +38,6 @@ transformer_download_model(architecture = "DistilBERT",
                            model_name = "distilbert-base-multilingual-uncased",
                            path = path)
 }
+unlink(file.path(system.file(package = "golgotha", "models"),
+       "bert-base-multilingual-uncased"), recursive = TRUE)
 }

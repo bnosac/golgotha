@@ -54,4 +54,7 @@ dim(embedding)
 embedding <- predict(model, x, type = "embed-token")
 str(embedding)
 }
+
+unlink(file.path(system.file(package = "golgotha", "models"),
+       "bert-base-multilingual-uncased"), recursive = TRUE)
 }

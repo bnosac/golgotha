@@ -18,6 +18,8 @@
 #'                            model_name = "distilbert-base-multilingual-uncased",
 #'                            path = path)
 #' }
+#' unlink(file.path(system.file(package = "golgotha", "models"),
+#'        "bert-base-multilingual-uncased"), recursive = TRUE)
 transformer_download_model <- function(model_name = "bert-base-multilingual-uncased",
                                        architecture = "BERT", path = system.file(package = "golgotha", "models"),
                                        clean = FALSE){
@@ -67,13 +69,19 @@ transformer_download_model <- function(model_name = "bert-base-multilingual-unca
 #'                            model_name = "distilbert-base-multilingual-cased",
 #'                            path = model_dir)
 #' path  <- file.path(getwd(), "inst", "models", "distilbert-base-multilingual-cased")
-#' model <- transformer(architecture = "DistilBERT", path = path)
+#' model <- transformer(model_name = "distilbert-base-multilingual-cased",
+#'                      architecture = "DistilBERT", path = path)
 #' predict(model, x, type = "tokenise")
 #' embedding <- predict(model, x, type = "embed-sentence")
 #' dim(embedding)
 #' embedding <- predict(model, x, type = "embed-token")
 #' str(embedding)
 #' }
+#'
+#' unlink(file.path(system.file(package = "golgotha", "models"),
+#'        "bert-base-multilingual-uncased"), recursive = TRUE)
+#' unlink(file.path(system.file(package = "golgotha", "models"),
+#'        "bert-base-multilingual-cased"), recursive = TRUE)
 transformer <- function(model_name, architecture = "BERT", path = system.file(package = "golgotha", "models")){
   if(missing(path)){
     path <- file.path(path, model_name)
@@ -136,6 +144,9 @@ print.Transformer <- function(x, ...){
 #' embedding <- predict(model, x, type = "embed-token")
 #' str(embedding)
 #' }
+#'
+#' unlink(file.path(system.file(package = "golgotha", "models"),
+#'        "bert-base-multilingual-uncased"), recursive = TRUE)
 predict.Transformer <- function(object, newdata, type = c("embed-sentence", "embed-token", "tokenise"), trace = 10, ...){
   if(is.character(newdata)){
     if(is.null(names(newdata))){
@@ -193,6 +204,11 @@ predict.Transformer <- function(object, newdata, type = c("embed-sentence", "emb
 #' bert_download_model("bert-base-multilingual-uncased", path = path)
 #' bert_download_model("bert-base-dutch-cased", path = path)
 #' }
+#'
+#' unlink(file.path(system.file(package = "golgotha", "models"),
+#'        "bert-base-multilingual-uncased"), recursive = TRUE)
+#' unlink(file.path(system.file(package = "golgotha", "models"),
+#'        "bert-base-dutch-cased"), recursive = TRUE)
 bert_download_model <- function(model_name = "bert-base-multilingual-uncased",
                                 path = system.file(package = "golgotha", "models")){
   transformer_download_model(architecture = "BERT", model_name = model_name, path = path)
@@ -226,6 +242,9 @@ bert_download_model <- function(model_name = "bert-base-multilingual-uncased",
 #' path  <- file.path(getwd(), "inst", "models", "bert-base-multilingual-uncased")
 #' model <- BERT(model_name = "bert-base-multilingual-uncased", path = path)
 #' }
+#'
+#' unlink(file.path(system.file(package = "golgotha", "models"),
+#'        "bert-base-multilingual-uncased"), recursive = TRUE)
 BERT <- function(model_name, path = system.file(package = "golgotha", "models")){
   if(missing(path)){
     path <- file.path(path, model_name)

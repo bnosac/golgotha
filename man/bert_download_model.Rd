@@ -29,4 +29,9 @@ path <- file.path(getwd(), "inst", "models")
 bert_download_model("bert-base-multilingual-uncased", path = path)
 bert_download_model("bert-base-dutch-cased", path = path)
 }
+
+unlink(file.path(system.file(package = "golgotha", "models"),
+       "bert-base-multilingual-uncased"), recursive = TRUE)
+unlink(file.path(system.file(package = "golgotha", "models"),
+       "bert-base-dutch-cased"), recursive = TRUE)
 }

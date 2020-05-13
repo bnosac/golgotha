@@ -44,11 +44,17 @@ transformer_download_model(architecture = "DistilBERT",
                            model_name = "distilbert-base-multilingual-cased",
                            path = model_dir)
 path  <- file.path(getwd(), "inst", "models", "distilbert-base-multilingual-cased")
-model <- transformer(architecture = "DistilBERT", path = path)
+model <- transformer(model_name = "distilbert-base-multilingual-cased",
+                     architecture = "DistilBERT", path = path)
 predict(model, x, type = "tokenise")
 embedding <- predict(model, x, type = "embed-sentence")
 dim(embedding)
 embedding <- predict(model, x, type = "embed-token")
 str(embedding)
 }
+
+unlink(file.path(system.file(package = "golgotha", "models"),
+       "bert-base-multilingual-uncased"), recursive = TRUE)
+unlink(file.path(system.file(package = "golgotha", "models"),
+       "bert-base-multilingual-cased"), recursive = TRUE)
 }

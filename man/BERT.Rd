@@ -38,4 +38,7 @@ bert_download_model("bert-base-multilingual-uncased", path = model_dir)
 path  <- file.path(getwd(), "inst", "models", "bert-base-multilingual-uncased")
 model <- BERT(model_name = "bert-base-multilingual-uncased", path = path)
 }
+
+unlink(file.path(system.file(package = "golgotha", "models"),
+       "bert-base-multilingual-uncased"), recursive = TRUE)
 }
