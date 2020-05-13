@@ -36,8 +36,8 @@ script:
   - R CMD INSTALL ../golgotha
   - cd vignettes/rnw; make; cd ..;cd ..;
   - R CMD build .
-  - R CMD check --no-manual --no-vignettes --no-tests --run-donttest *tar.gz
-  - R CMD check --no-manual --no-vignettes *tar.gz
+  - R CMD check --as-cran --no-manual --no-vignettes --no-tests --run-donttest *tar.gz
+  - R CMD check --as-cran --no-manual --no-vignettes *tar.gz
 
 after_success:
   - find . -name *.Rout | xargs cat
