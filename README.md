@@ -90,6 +90,17 @@ model <- transformer("distilbert-base-multilingual-cased", architecture = "Disti
 model <- transformer("distilroberta-base", architecture = "DistilBERT")
 ```
 
+### Issues
+
+- This package requires transformers and torch to be installed. Normally R package reticulate automagically gets this done for you.
+- If your installation gets stuck somehow, you can normally install these requirements as follows.
+
+```
+library(reticulate)
+install_miniconda()
+conda_install(envname = 'r-reticulate', c('torch', 'transformers==2.4.1'), pip = TRUE)
+```
+
 ### Continuous Integration
 
 [![Build Status](https://travis-ci.org/bnosac/golgotha.svg?branch=master)](https://travis-ci.org/bnosac/golgotha)
