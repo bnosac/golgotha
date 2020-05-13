@@ -11,6 +11,7 @@ Description: Wraps the transformers Python module in order to easily obtain cont
 License: MPL-2.0
 Encoding: UTF-8
 Archs: x64
+SystemRequirements: Python (>= 2.7.0)
 Suggests: 
     tinytest
 Depends:
