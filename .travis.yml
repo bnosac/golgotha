@@ -42,5 +42,5 @@ script:
   - R CMD check --no-manual --no-vignettes *tar.gz
 
 after_success:
-  - Rscript -e 'library(covr);coveralls()'
+  - Rscript -e 'library(covr);codecov()'
 
