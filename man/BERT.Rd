@@ -36,6 +36,6 @@ str(embedding)
 model_dir <- file.path(getwd(), "inst", "models")
 bert_download_model("bert-base-multilingual-uncased", path = model_dir)
 path  <- file.path(getwd(), "inst", "models", "bert-base-multilingual-uncased")
-model <- BERT(path = path)
+model <- BERT(model_name = "bert-base-multilingual-uncased", path = path)
 }
 }

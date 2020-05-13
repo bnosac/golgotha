@@ -224,7 +224,7 @@ bert_download_model <- function(model_name = "bert-base-multilingual-uncased",
 #' model_dir <- file.path(getwd(), "inst", "models")
 #' bert_download_model("bert-base-multilingual-uncased", path = model_dir)
 #' path  <- file.path(getwd(), "inst", "models", "bert-base-multilingual-uncased")
-#' model <- BERT(path = path)
+#' model <- BERT(model_name = "bert-base-multilingual-uncased", path = path)
 #' }
 BERT <- function(model_name, path = system.file(package = "golgotha", "models")){
   if(missing(path)){
