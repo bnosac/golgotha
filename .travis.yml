@@ -22,7 +22,6 @@ repos:
 r_packages:
   - reticulate
   - tinytest
-  - covr
 
 env:
   - TT_AT_CI=TRUE
@@ -41,9 +40,8 @@ script:
   - R CMD check --no-manual --no-vignettes *tar.gz
 
 after_success:
-  - Rscript -e 'covr::codecov()'
-  - find . -name testthat.Rout | xargs cat
+  - find . -name *.Rout | xargs cat
 
 after_failure:
-  - find . -name testthat.Rout | xargs cat
+  - find . -name *.Rout | xargs cat
 

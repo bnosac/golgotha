@@ -1,20 +1,17 @@
-unlink_model_directory <- function(){
-  d <- system.file(package = "golgotha", "models")
-  d <- setdiff(list.dirs(d), d)
-  invisible(unlink(d, recursive = TRUE))
-}
-
 if(requireNamespace("tinytest", quietly = TRUE)){
   if(tinytest::at_home()){
     library(golgotha)
     tinytest::test_package("golgotha")
-    unlink_model_directory()
+    unlink_golgotha()
   }
   if(identical(Sys.getenv("TT_AT_CI"), "TRUE")){
     library(golgotha)
-    testdir <- system.file("tinytest", package = "golgotha")
     #tinytest::test_package("golgotha", pattern = "test-check.R|test-transformer-default.R|test-distilbert.R")
-    tinytest::test_package("golgotha", pattern = "test-check.R")
-    unlink_model_directory()
+    tests <- c("test-distilbert.R", "test-download.R", "test-gpt2.R",
+               "test-roberta.R", "test-transformer-default.R", "test-transformer-xl.R",
+               "test-xlm-roberta.R", "test-xlm.R", "test-xlnet.R")
+    tests <- c("test-download.R", "test-transformer-default.R")
+    tinytest::test_package("golgotha", pattern = paste(tests, collapse = "|"))
+    unlink_golgotha()
   }
 }
