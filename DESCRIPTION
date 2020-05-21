@@ -1,13 +1,19 @@
 Package: golgotha
 Type: Package
-Title: Contextualised Embeddings and Language Modelling using BERT and Friends
+Title: Contextualised Embeddings and Language Modelling using BERT
 Version: 0.2.0
 Maintainer: Jan Wijffels <jwijffels@bnosac.be>
 Authors@R: c(
     person('Jan', 'Wijffels', role = c('aut', 'cre', 'cph'), email = 'jwijffels@bnosac.be'), 
     person('BNOSAC', role = 'cph'))
-Description: Wraps the transformers <arXiv:1910.03771> Python module in order to easily obtain contextualised embeddings of sentences.
-    This work was basically done in order to ease the work of building predictive models using BERT-like embeddings.
+Description: Wraps the transformers Python module described in 
+    "HuggingFace's Transformers: State-of-the-art Natural Language Processing" by Wolf T. et al. (2020) <arXiv:1910.03771> in order to easily obtain contextualised embeddings of sentences.
+    This work was done in order to ease the work of building predictive models using BERT-like embeddings.
+    BERT stands for "Bidirectional Encoder Representations from Transformers" as described in Devlin J. et al. (2018) <arXiv:1810.04805>. 
+    It is a deep learning model which provides for pieces of words in a text a set of numbers called embeddings. These embedding
+    capture the meaning of the words and depend on the context in which each word appears.
+    The package provides an interface to BERT-like "Transformer" models such that R users 
+    can just download these pretrained models and retrieve the embeddings of text with a straightforward call to predict.
 License: MPL-2.0
 Encoding: UTF-8
 Archs: x64
